@@ -29,6 +29,8 @@ func SetupDB() {
 	// dsn := "user=postgres password=12341234 dbname=cmgostock port=5432 sslmode=disable TimeZone=Asia/Bangkok"
 	// database, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
+	// go get -u gorm.io/driver/sqlserver
+
 	if err != nil {
 		panic("failed to connect database")
 	}

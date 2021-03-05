@@ -19,4 +19,4 @@ docker build -t <docker image tag> -f ./docker/Dockerfile .
 docker run -d -p 8080:8080 <docker image tag>
 
 //docker-compose up -d
-docker-compose -f ./docker/docker-compose.yml up -d 
+docker-compose -f ./docker/docker-compose.yml up -d --build
