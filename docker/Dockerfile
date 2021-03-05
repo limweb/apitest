@@ -6,5 +6,5 @@ RUN  CGO_ENABLED=0 GOOS=linux go build
 
 FROM alpine:3.13 as production
 WORKDIR /app
-COPY --from=builder /app .
-CMD ["main"]
+COPY --from=builder /app/apitest /app/apitest
+CMD ["apitest"]
