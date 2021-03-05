@@ -15,7 +15,6 @@ COPY ./api.md   /app/api.md
 WORKDIR /app
 ENV  GIN_MODE=release
 RUN  CGO_ENABLED=0 GOOS=linux go build  -o main  
-RUN CGO_ENABLED=0 GOOS=linux go build -o main ./...
 
 FROM alpine:3.13 as production
 WORKDIR /app
