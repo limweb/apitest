@@ -1,14 +1,20 @@
 package main
 
 import (
-	_ "apitest/docs"
-	"apitest/handler"
+	"apitest/db"
+	"apitest/model"
+	"apitest/webserver"
+	"flag"
 	"log"
-
-	"github.com/gin-gonic/gin"
-	ginSwagger "github.com/swaggo/gin-swagger"
-	"github.com/swaggo/gin-swagger/swaggerFiles"
 )
+
+var (
+	port string
+)
+
+func init() {
+	flag.StringVar(&port, "port", "8080", "web port 8080")
+}
 
 // @title ApiTest
 // @version 2.0
@@ -28,23 +34,15 @@ import (
 // @in header
 // @name Authorization
 func main() {
-	r := gin.Default()
-
-	r.GET("/healthcheck", handler.HealthCheckHandler)
-
-	v1 := r.Group("/api/v1")
-	{
-		customers := v1.Group("/customers")
-		{
-			customersHandler := handler.CustomerHandler{}
-			customers.GET(":id", customersHandler.GetCustomer)
-			customers.GET("", customersHandler.ListCustomers)
-			customers.POST("", customersHandler.CreateCustomer)
-			customers.DELETE(":id", customersHandler.DeleteCustomer)
-			customers.PATCH(":id", customersHandler.UpdateCustomer)
-		}
-	}
-	r.GET("/apidoc/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-	// log.Fatal((r.Run(":8080")))
-	log.Fatal((r.Run()))
+	flag.Parse()
+	log.Printf("----------------------  Web Server Api  V 0.0.1   --------------------------")
+	log.Printf("----------------------วิธีใช้: server.exe -port 8080 --------------------------")
+	port = ":" + port
+	log.Printf("-------------------Starting with WebServer on Port %s --------------------", port)
+	db.SetupDB()
+	p1 := model.Person{FirstName: "John", LastName: "Doe"}
+	p2 := model.Person{FirstName: "Jane", LastName: "Smith"}
+	db.GetDB().Create(&p1)
+	db.GetDB().Create(&p2)
+	webserver.StartWeb(port)
 }

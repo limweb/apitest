@@ -33,11 +33,67 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/api/v1/customers": {
+        "/api/v1/books": {
             "get": {
                 "security": [
                     {
                         "ApiKeyAuth": []
+                    }
+                ],
+                "description": "List all Books",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "books"
+                ],
+                "summary": "List Book",
+                "operationId": "listBook",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.Book"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Response"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/model.Response"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/model.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/model.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/customers": {
+            "get": {
+                "security": [
+                    {
+                        "OAuth2": []
                     }
                 ],
                 "description": "List all customers",
@@ -146,7 +202,7 @@ var doc = `{
             "get": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "Basic auth": []
                     }
                 ],
                 "description": "Get customer by id",
@@ -338,9 +394,77 @@ var doc = `{
                     }
                 }
             }
+        },
+        "/message": {
+            "get": {
+                "description": "Message for the service",
+                "produces": [
+                    "text/plain"
+                ],
+                "summary": "Message",
+                "operationId": "Message",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Transaction"
+                        }
+                    }
+                }
+            }
+        },
+        "/ping": {
+            "get": {
+                "description": "Ping for the service",
+                "produces": [
+                    "text/plain"
+                ],
+                "summary": "Ping",
+                "operationId": "Ping",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Product"
+                        }
+                    }
+                }
+            }
+        },
+        "/test": {
+            "get": {
+                "description": "Test for the service",
+                "produces": [
+                    "text/plain"
+                ],
+                "summary": "Test",
+                "operationId": "Test",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.User"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "model.Book": {
+            "type": "object",
+            "properties": {
+                "author": {
+                    "type": "string"
+                },
+                "category": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
         "model.Customer": {
             "type": "object",
             "required": [
@@ -482,6 +606,34 @@ var doc = `{
                 }
             }
         },
+        "model.Product": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "Product ID",
+                    "type": "integer"
+                },
+                "image": {
+                    "description": "Product Image",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Product Name",
+                    "type": "string"
+                },
+                "price": {
+                    "description": "Product Price",
+                    "type": "number"
+                },
+                "stock": {
+                    "description": "Product Stock",
+                    "type": "integer"
+                },
+                "time": {
+                    "type": "string"
+                }
+            }
+        },
         "model.Response": {
             "type": "object",
             "properties": {
@@ -491,6 +643,75 @@ var doc = `{
                 },
                 "status": {
                     "description": "Response Status",
+                    "type": "string"
+                }
+            }
+        },
+        "model.Transaction": {
+            "type": "object",
+            "properties": {
+                "change": {
+                    "description": "Transaction Change",
+                    "type": "number"
+                },
+                "id": {
+                    "description": "Transaction ID",
+                    "type": "integer"
+                },
+                "order_list": {
+                    "description": "Transaction OrderList",
+                    "type": "string"
+                },
+                "paid": {
+                    "description": "Transaction Paid",
+                    "type": "number"
+                },
+                "payment_detail": {
+                    "description": "Transaction PaymentDetail",
+                    "type": "string"
+                },
+                "payment_type": {
+                    "description": "Transaction PaymentType",
+                    "type": "string"
+                },
+                "staff_id": {
+                    "description": "Transaction StaffID",
+                    "type": "string"
+                },
+                "total": {
+                    "description": "Transaction Total",
+                    "type": "number"
+                }
+            }
+        },
+        "model.User": {
+            "type": "object",
+            "required": [
+                "password",
+                "username"
+            ],
+            "properties": {
+                "id": {
+                    "description": "User ID",
+                    "type": "integer"
+                },
+                "level": {
+                    "description": "User level",
+                    "type": "string",
+                    "enum": [
+                        "0",
+                        "1",
+                        "10",
+                        "99"
+                    ],
+                    "example": "10"
+                },
+                "password": {
+                    "description": "User password",
+                    "type": "string"
+                },
+                "username": {
+                    "description": "User username",
                     "type": "string"
                 }
             }
@@ -521,7 +742,7 @@ var SwaggerInfo = swaggerInfo{
 	BasePath:    "",
 	Schemes:     []string{"https", "http"},
 	Title:       "ApiTest",
-	Description: "# Manageing Customer API\r\n\r\n![Sample Image](https://picsum.photos/600/400)",
+	Description: "# Manageing Customer API",
 }
 
 type s struct{}

@@ -1,4 +1,13 @@
 definitions:
+  model.Book:
+    properties:
+      author:
+        type: string
+      category:
+        type: string
+      name:
+        type: string
+    type: object
   model.Customer:
     properties:
       email:
@@ -109,6 +118,26 @@ definitions:
           $ref: '#/definitions/model.Customer'
         type: array
     type: object
+  model.Product:
+    properties:
+      id:
+        description: Product ID
+        type: integer
+      image:
+        description: Product Image
+        type: string
+      name:
+        description: Product Name
+        type: string
+      price:
+        description: Product Price
+        type: number
+      stock:
+        description: Product Stock
+        type: integer
+      time:
+        type: string
+    type: object
   model.Response:
     properties:
       code:
@@ -118,12 +147,63 @@ definitions:
         description: Response Status
         type: string
     type: object
+  model.Transaction:
+    properties:
+      change:
+        description: Transaction Change
+        type: number
+      id:
+        description: Transaction ID
+        type: integer
+      order_list:
+        description: Transaction OrderList
+        type: string
+      paid:
+        description: Transaction Paid
+        type: number
+      payment_detail:
+        description: Transaction PaymentDetail
+        type: string
+      payment_type:
+        description: Transaction PaymentType
+        type: string
+      staff_id:
+        description: Transaction StaffID
+        type: string
+      total:
+        description: Transaction Total
+        type: number
+    type: object
+  model.User:
+    properties:
+      id:
+        description: User ID
+        type: integer
+      level:
+        description: User level
+        enum:
+        - "0"
+        - "1"
+        - "10"
+        - "99"
+        example: "10"
+        type: string
+      password:
+        description: User password
+        type: string
+      username:
+        description: User username
+        type: string
+    required:
+    - password
+    - username
+    type: object
 info:
   contact:
     email: support@somewhere.com
     name: API Support
     url: http://somewhere.com/support
-  description: "# Manageing Customer API\r\n\r\n![Sample Image](https://picsum.photos/600/400)"
+  description: '# Manageing Customer API'
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
@@ -131,6 +211,42 @@ info:
   title: ApiTest
   version: "2.0"
 paths:
+  /api/v1/books:
+    get:
+      consumes:
+      - application/json
+      description: List all Books
+      operationId: listBook
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Book'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.Response'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/model.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: List Book
+      tags:
+      - books
   /api/v1/customers:
     get:
       consumes:
@@ -161,7 +277,7 @@ paths:
           schema:
             $ref: '#/definitions/model.Response'
       security:
-      - ApiKeyAuth: []
+      - OAuth2: []
       summary: List Customers
       tags:
       - customers
@@ -272,7 +388,7 @@ paths:
           schema:
             $ref: '#/definitions/model.Response'
       security:
-      - ApiKeyAuth: []
+      - Basic auth: []
       summary: Get Customer
       tags:
       - customers
@@ -329,6 +445,42 @@ paths:
           schema:
             type: string
       summary: Health Check
+  /message:
+    get:
+      description: Message for the service
+      operationId: Message
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Transaction'
+      summary: Message
+  /ping:
+    get:
+      description: Ping for the service
+      operationId: Ping
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Product'
+      summary: Ping
+  /test:
+    get:
+      description: Test for the service
+      operationId: Test
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.User'
+      summary: Test
 schemes:
 - https
 - http

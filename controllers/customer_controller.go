@@ -1,4 +1,4 @@
-package handler
+package controllers
 
 import "github.com/gin-gonic/gin"
 
@@ -9,7 +9,7 @@ type CustomerHandler struct {
 // @summary Get Customer
 // @description  Get customer by id
 // @tags customers
-// @security ApiKeyAuth
+// @security Basic auth
 // @id GetCustomer
 // @accept json
 // @produce json
@@ -28,7 +28,7 @@ func (h *CustomerHandler) GetCustomer(c *gin.Context) {
 // @summary List Customers
 // @description List all customers
 // @tags customers
-// @security ApiKeyAuth
+// @security OAuth2
 // @id ListCustomers
 // @accept json
 // @produce json
