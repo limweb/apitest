@@ -1,0 +1,340 @@
+definitions:
+  model.Customer:
+    properties:
+      email:
+        description: Customer E-mail
+        example: choo@gmail.com
+        maxLength: 255
+        type: string
+      firstname:
+        description: Customer Firstname
+        example: Choopong
+        maxLength: 255
+        type: string
+      gender:
+        description: Customer Gender
+        enum:
+        - male
+        - female
+        example: male
+        type: string
+      id:
+        description: Customer ID
+        example: 1
+        type: integer
+      lastname:
+        description: Customer Lastname
+        example: Choosamer
+        maxLength: 255
+        type: string
+      username:
+        description: Customer Username
+        example: choo
+        maxLength: 255
+        type: string
+    required:
+    - email
+    - firstname
+    - lastname
+    - username
+    type: object
+  model.CustomerForCreate:
+    properties:
+      email:
+        description: Customer E-mail
+        example: choo@gmail.com
+        maxLength: 255
+        type: string
+      firstname:
+        description: Customer Firstname
+        example: Choopong
+        maxLength: 255
+        type: string
+      gender:
+        description: Customer Gender
+        enum:
+        - male
+        - female
+        example: male
+        type: string
+      lastname:
+        description: Customer Lastname
+        example: Choosamer
+        maxLength: 255
+        type: string
+      username:
+        description: Customer Username
+        example: choo
+        maxLength: 255
+        type: string
+    required:
+    - email
+    - firstname
+    - lastname
+    - username
+    type: object
+  model.CustomerForUpdate:
+    properties:
+      email:
+        description: Customer E-mail
+        example: choo@gmail.com
+        maxLength: 255
+        type: string
+      firstname:
+        description: Customer Firstname
+        example: Choopong
+        maxLength: 255
+        type: string
+      gender:
+        description: Customer Gender
+        enum:
+        - male
+        - female
+        example: male
+        type: string
+      lastname:
+        description: Customer Lastname
+        example: Choosamer
+        maxLength: 255
+        type: string
+    required:
+    - email
+    - firstname
+    - lastname
+    type: object
+  model.Customers:
+    properties:
+      customers:
+        items:
+          $ref: '#/definitions/model.Customer'
+        type: array
+    type: object
+  model.Response:
+    properties:
+      code:
+        description: Response Code
+        type: integer
+      status:
+        description: Response Status
+        type: string
+    type: object
+info:
+  contact:
+    email: support@somewhere.com
+    name: API Support
+    url: http://somewhere.com/support
+  description: "# Manageing Customer API\r\n\r\n![Sample Image](https://picsum.photos/600/400)"
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://somewhere.com/
+  title: ApiTest
+  version: "2.0"
+paths:
+  /api/v1/customers:
+    get:
+      consumes:
+      - application/json
+      description: List all customers
+      operationId: ListCustomers
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Customers'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.Response'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/model.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: List Customers
+      tags:
+      - customers
+    post:
+      consumes:
+      - application/json
+      description: Create new customer
+      operationId: CreateCustomer
+      parameters:
+      - description: Customer data to be created
+        in: body
+        name: Customer
+        required: true
+        schema:
+          $ref: '#/definitions/model.CustomerForCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Create Customer
+      tags:
+      - customers
+  /api/v1/customers/:id:
+    delete:
+      consumes:
+      - application/json
+      description: Delete customer by id
+      operationId: DeleteCustomer
+      parameters:
+      - description: id of customer to be deleted
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete Customer
+      tags:
+      - customers
+    get:
+      consumes:
+      - application/json
+      description: Get customer by id
+      operationId: GetCustomer
+      parameters:
+      - description: id of customer to be gotten
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Customer'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.Response'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/model.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Get Customer
+      tags:
+      - customers
+    patch:
+      consumes:
+      - application/json
+      description: Update customer by id
+      operationId: UpdateCustomer
+      parameters:
+      - description: id of customer to be updated
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Customer data to be updated
+        in: body
+        name: Customer
+        required: true
+        schema:
+          $ref: '#/definitions/model.CustomerForUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/model.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Update Customer
+      tags:
+      - customers
+  /healthcheck:
+    get:
+      description: Health checking for the service
+      operationId: HealthCheckHandler
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Health Check
+schemes:
+- https
+- http
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
