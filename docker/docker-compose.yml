@@ -1,0 +1,15 @@
+#  docker-compose -f docker-compose.yml config check validate config
+version: "3.1"
+services:
+  goapitest:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    image: "testapi"
+    container_name: goapitest
+    working_dir: /app
+    restart: "no"
+    ports:
+      - "8080:8080"
+    expose:
+      - "8080"
