@@ -4,7 +4,7 @@ services:
   goapitest:
     build:
       context: .
-      dockerfile: ./docker/Dockerfile
+      dockerfile: Dockerfile
     image: "testapi"
     container_name: goapitest
     working_dir: /app
@@ -13,3 +13,4 @@ services:
       - "8080:8080"
     expose:
       - "8080"
+

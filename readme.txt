@@ -12,3 +12,4 @@ docker run -d -p 8080:8080 apitest
 
 
 //docker-compose up -d
+docker-compose -f ./docker/docker-compose.yml up -d 
