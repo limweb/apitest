@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"apitest/model"
+	"apitest/models"
 	"apitest/services"
 	"net/http"
 
@@ -25,14 +25,14 @@ func SetupBookRoutes(rg *gin.RouterGroup) {
 // @id listBook
 // @accept json
 // @produce json
-// @response 200 {array}  model.Book "OK"
-// @response 400 {object} model.Response "Bad Request"
-// @response 401 {object} model.Response "Unauthorized"
-// @response 409 {object} model.Response "Conflict"
-// @response 500 {object} model.Response "Internal Server Error"
+// @response 200 {array}  models.Book "OK"
+// @response 400 {object} models.Response "Bad Request"
+// @response 401 {object} models.Response "Unauthorized"
+// @response 409 {object} models.Response "Conflict"
+// @response 500 {object} models.Response "Internal Server Error"
 // @Router /api/v1/books [get]
 func listBook(c *gin.Context) {
-	var book []model.Book
+	var book []models.Book
 	err := services.GetAllBook(&book)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -46,7 +46,7 @@ func listBook(c *gin.Context) {
 }
 
 func addNewBook(c *gin.Context) {
-	var book model.Book
+	var book models.Book
 	c.BindJSON(&book)
 	err := services.AddNewBook(&book)
 	if err != nil {
@@ -62,7 +62,7 @@ func addNewBook(c *gin.Context) {
 
 func getOneBook(c *gin.Context) {
 	id := c.Params.ByName("id")
-	var book model.Book
+	var book models.Book
 	err := services.GetOneBook(&book, id)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -76,7 +76,7 @@ func getOneBook(c *gin.Context) {
 }
 
 func putOneBook(c *gin.Context) {
-	var book model.Book
+	var book models.Book
 	id := c.Params.ByName("id")
 	err := services.GetOneBook(&book, id)
 	if err != nil {
@@ -98,7 +98,7 @@ func putOneBook(c *gin.Context) {
 }
 
 func deleteBook(c *gin.Context) {
-	var book model.Book
+	var book models.Book
 	id := c.Params.ByName("id")
 	err := services.DeleteBook(&book, id)
 	if err != nil {

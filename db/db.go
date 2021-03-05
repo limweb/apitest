@@ -1,7 +1,7 @@
 package db
 
 import (
-	"apitest/model"
+	"apitest/models"
 	"log"
 
 	"gorm.io/driver/sqlite"
@@ -35,11 +35,11 @@ func SetupDB() {
 		panic("failed to connect database")
 	}
 
-	database.AutoMigrate(&model.User{})
-	database.AutoMigrate(&model.Product{})
-	database.AutoMigrate(&model.Transaction{})
-	database.AutoMigrate(&model.Person{})
-	database.AutoMigrate(&model.Book{})
+	database.AutoMigrate(&models.User{})
+	database.AutoMigrate(&models.Product{})
+	database.AutoMigrate(&models.Transaction{})
+	database.AutoMigrate(&models.Person{})
+	database.AutoMigrate(&models.Book{})
 
 	db = database
 }

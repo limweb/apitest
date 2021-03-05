@@ -1,4 +1,4 @@
-package model
+package models
 
 type Response struct {
 	Code   int    `json:code`   // Response Code

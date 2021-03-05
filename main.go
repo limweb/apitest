@@ -2,7 +2,7 @@ package main
 
 import (
 	"apitest/db"
-	"apitest/model"
+	"apitest/models"
 	"apitest/webserver"
 	"flag"
 	"log"
@@ -40,8 +40,8 @@ func main() {
 	port = ":" + port
 	log.Printf("-------------------Starting with WebServer on Port %s --------------------", port)
 	db.SetupDB()
-	p1 := model.Person{FirstName: "John", LastName: "Doe"}
-	p2 := model.Person{FirstName: "Jane", LastName: "Smith"}
+	p1 := models.Person{FirstName: "John", LastName: "Doe"}
+	p2 := models.Person{FirstName: "Jane", LastName: "Smith"}
 	db.GetDB().Create(&p1)
 	db.GetDB().Create(&p2)
 	webserver.StartWeb(port)

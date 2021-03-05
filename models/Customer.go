@@ -1,4 +1,4 @@
-package model
+package models
 
 type Customers struct {
 	Customers []Customer `json:"customers"`

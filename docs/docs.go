@@ -58,32 +58,32 @@ var doc = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/model.Book"
+                                "$ref": "#/definitions/models.Book"
                             }
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/model.Response"
+                            "$ref": "#/definitions/models.Response"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/model.Response"
+                            "$ref": "#/definitions/models.Response"
                         }
                     },
                     "409": {
                         "description": "Conflict",
                         "schema": {
-                            "$ref": "#/definitions/model.Response"
+                            "$ref": "#/definitions/models.Response"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/model.Response"
+                            "$ref": "#/definitions/models.Response"
                         }
                     }
                 }
@@ -112,31 +112,31 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/model.Customers"
+                            "$ref": "#/definitions/models.Customers"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/model.Response"
+                            "$ref": "#/definitions/models.Response"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/model.Response"
+                            "$ref": "#/definitions/models.Response"
                         }
                     },
                     "409": {
                         "description": "Conflict",
                         "schema": {
-                            "$ref": "#/definitions/model.Response"
+                            "$ref": "#/definitions/models.Response"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/model.Response"
+                            "$ref": "#/definitions/models.Response"
                         }
                     }
                 }
@@ -166,7 +166,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.CustomerForCreate"
+                            "$ref": "#/definitions/models.CustomerForCreate"
                         }
                     }
                 ],
@@ -174,25 +174,25 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/model.Response"
+                            "$ref": "#/definitions/models.Response"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/model.Response"
+                            "$ref": "#/definitions/models.Response"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/model.Response"
+                            "$ref": "#/definitions/models.Response"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/model.Response"
+                            "$ref": "#/definitions/models.Response"
                         }
                     }
                 }
@@ -230,31 +230,31 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/model.Customer"
+                            "$ref": "#/definitions/models.Customer"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/model.Response"
+                            "$ref": "#/definitions/models.Response"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/model.Response"
+                            "$ref": "#/definitions/models.Response"
                         }
                     },
                     "409": {
                         "description": "Conflict",
                         "schema": {
-                            "$ref": "#/definitions/model.Response"
+                            "$ref": "#/definitions/models.Response"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/model.Response"
+                            "$ref": "#/definitions/models.Response"
                         }
                     }
                 }
@@ -290,25 +290,25 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/model.Response"
+                            "$ref": "#/definitions/models.Response"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/model.Response"
+                            "$ref": "#/definitions/models.Response"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/model.Response"
+                            "$ref": "#/definitions/models.Response"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/model.Response"
+                            "$ref": "#/definitions/models.Response"
                         }
                     }
                 }
@@ -345,7 +345,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.CustomerForUpdate"
+                            "$ref": "#/definitions/models.CustomerForUpdate"
                         }
                     }
                 ],
@@ -353,25 +353,25 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/model.Response"
+                            "$ref": "#/definitions/models.Response"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/model.Response"
+                            "$ref": "#/definitions/models.Response"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/model.Response"
+                            "$ref": "#/definitions/models.Response"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/model.Response"
+                            "$ref": "#/definitions/models.Response"
                         }
                     }
                 }
@@ -407,7 +407,7 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/model.Transaction"
+                            "$ref": "#/definitions/models.Transaction"
                         }
                     }
                 }
@@ -425,7 +425,7 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/model.Product"
+                            "$ref": "#/definitions/models.Product"
                         }
                     }
                 }
@@ -443,7 +443,7 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/model.User"
+                            "$ref": "#/definitions/models.User"
                         }
                     }
                 }
@@ -451,7 +451,7 @@ var doc = `{
         }
     },
     "definitions": {
-        "model.Book": {
+        "models.Book": {
             "type": "object",
             "properties": {
                 "author": {
@@ -465,7 +465,7 @@ var doc = `{
                 }
             }
         },
-        "model.Customer": {
+        "models.Customer": {
             "type": "object",
             "required": [
                 "email",
@@ -514,7 +514,7 @@ var doc = `{
                 }
             }
         },
-        "model.CustomerForCreate": {
+        "models.CustomerForCreate": {
             "type": "object",
             "required": [
                 "email",
@@ -558,7 +558,7 @@ var doc = `{
                 }
             }
         },
-        "model.CustomerForUpdate": {
+        "models.CustomerForUpdate": {
             "type": "object",
             "required": [
                 "email",
@@ -595,18 +595,18 @@ var doc = `{
                 }
             }
         },
-        "model.Customers": {
+        "models.Customers": {
             "type": "object",
             "properties": {
                 "customers": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/model.Customer"
+                        "$ref": "#/definitions/models.Customer"
                     }
                 }
             }
         },
-        "model.Product": {
+        "models.Product": {
             "type": "object",
             "properties": {
                 "id": {
@@ -634,7 +634,7 @@ var doc = `{
                 }
             }
         },
-        "model.Response": {
+        "models.Response": {
             "type": "object",
             "properties": {
                 "code": {
@@ -647,7 +647,7 @@ var doc = `{
                 }
             }
         },
-        "model.Transaction": {
+        "models.Transaction": {
             "type": "object",
             "properties": {
                 "change": {
@@ -684,7 +684,7 @@ var doc = `{
                 }
             }
         },
-        "model.User": {
+        "models.User": {
             "type": "object",
             "required": [
                 "password",

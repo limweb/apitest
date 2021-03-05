@@ -1,5 +1,5 @@
 definitions:
-  model.Book:
+  models.Book:
     properties:
       author:
         type: string
@@ -8,7 +8,7 @@ definitions:
       name:
         type: string
     type: object
-  model.Customer:
+  models.Customer:
     properties:
       email:
         description: Customer E-mail
@@ -47,7 +47,7 @@ definitions:
     - lastname
     - username
     type: object
-  model.CustomerForCreate:
+  models.CustomerForCreate:
     properties:
       email:
         description: Customer E-mail
@@ -82,7 +82,7 @@ definitions:
     - lastname
     - username
     type: object
-  model.CustomerForUpdate:
+  models.CustomerForUpdate:
     properties:
       email:
         description: Customer E-mail
@@ -111,14 +111,14 @@ definitions:
     - firstname
     - lastname
     type: object
-  model.Customers:
+  models.Customers:
     properties:
       customers:
         items:
-          $ref: '#/definitions/model.Customer'
+          $ref: '#/definitions/models.Customer'
         type: array
     type: object
-  model.Product:
+  models.Product:
     properties:
       id:
         description: Product ID
@@ -138,7 +138,7 @@ definitions:
       time:
         type: string
     type: object
-  model.Response:
+  models.Response:
     properties:
       code:
         description: Response Code
@@ -147,7 +147,7 @@ definitions:
         description: Response Status
         type: string
     type: object
-  model.Transaction:
+  models.Transaction:
     properties:
       change:
         description: Transaction Change
@@ -174,7 +174,7 @@ definitions:
         description: Transaction Total
         type: number
     type: object
-  model.User:
+  models.User:
     properties:
       id:
         description: User ID
@@ -224,24 +224,24 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/model.Book'
+              $ref: '#/definitions/models.Book'
             type: array
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/model.Response'
+            $ref: '#/definitions/models.Response'
         "401":
           description: Unauthorized
           schema:
-            $ref: '#/definitions/model.Response'
+            $ref: '#/definitions/models.Response'
         "409":
           description: Conflict
           schema:
-            $ref: '#/definitions/model.Response'
+            $ref: '#/definitions/models.Response'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/model.Response'
+            $ref: '#/definitions/models.Response'
       security:
       - ApiKeyAuth: []
       summary: List Book
@@ -259,23 +259,23 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/model.Customers'
+            $ref: '#/definitions/models.Customers'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/model.Response'
+            $ref: '#/definitions/models.Response'
         "401":
           description: Unauthorized
           schema:
-            $ref: '#/definitions/model.Response'
+            $ref: '#/definitions/models.Response'
         "409":
           description: Conflict
           schema:
-            $ref: '#/definitions/model.Response'
+            $ref: '#/definitions/models.Response'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/model.Response'
+            $ref: '#/definitions/models.Response'
       security:
       - OAuth2: []
       summary: List Customers
@@ -292,26 +292,26 @@ paths:
         name: Customer
         required: true
         schema:
-          $ref: '#/definitions/model.CustomerForCreate'
+          $ref: '#/definitions/models.CustomerForCreate'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/model.Response'
+            $ref: '#/definitions/models.Response'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/model.Response'
+            $ref: '#/definitions/models.Response'
         "401":
           description: Unauthorized
           schema:
-            $ref: '#/definitions/model.Response'
+            $ref: '#/definitions/models.Response'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/model.Response'
+            $ref: '#/definitions/models.Response'
       security:
       - ApiKeyAuth: []
       summary: Create Customer
@@ -335,19 +335,19 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/model.Response'
+            $ref: '#/definitions/models.Response'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/model.Response'
+            $ref: '#/definitions/models.Response'
         "401":
           description: Unauthorized
           schema:
-            $ref: '#/definitions/model.Response'
+            $ref: '#/definitions/models.Response'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/model.Response'
+            $ref: '#/definitions/models.Response'
       security:
       - ApiKeyAuth: []
       summary: Delete Customer
@@ -370,23 +370,23 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/model.Customer'
+            $ref: '#/definitions/models.Customer'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/model.Response'
+            $ref: '#/definitions/models.Response'
         "401":
           description: Unauthorized
           schema:
-            $ref: '#/definitions/model.Response'
+            $ref: '#/definitions/models.Response'
         "409":
           description: Conflict
           schema:
-            $ref: '#/definitions/model.Response'
+            $ref: '#/definitions/models.Response'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/model.Response'
+            $ref: '#/definitions/models.Response'
       security:
       - Basic auth: []
       summary: Get Customer
@@ -408,26 +408,26 @@ paths:
         name: Customer
         required: true
         schema:
-          $ref: '#/definitions/model.CustomerForUpdate'
+          $ref: '#/definitions/models.CustomerForUpdate'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/model.Response'
+            $ref: '#/definitions/models.Response'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/model.Response'
+            $ref: '#/definitions/models.Response'
         "401":
           description: Unauthorized
           schema:
-            $ref: '#/definitions/model.Response'
+            $ref: '#/definitions/models.Response'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/model.Response'
+            $ref: '#/definitions/models.Response'
       security:
       - ApiKeyAuth: []
       summary: Update Customer
@@ -455,7 +455,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/model.Transaction'
+            $ref: '#/definitions/models.Transaction'
       summary: Message
   /ping:
     get:
@@ -467,7 +467,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/model.Product'
+            $ref: '#/definitions/models.Product'
       summary: Ping
   /test:
     get:
@@ -479,7 +479,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/model.User'
+            $ref: '#/definitions/models.User'
       summary: Test
 schemes:
 - https
