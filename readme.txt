@@ -1,8 +1,8 @@
 //feature
-- swagger api docs
-- docker support 
-- flag arement
-- gorm database 
+- swagger api docs  ok
+- docker support    ok
+- flag arement      ok
+- gorm database     ok
 - jwt 
 - ...
 
