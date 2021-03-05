@@ -20,4 +20,3 @@ FROM alpine:3.13 as production
 WORKDIR /app
 COPY --from=builder /app/main /app/main
 CMD ["./main"]
-
