@@ -3,7 +3,7 @@ WORKDIR /app
 COPY . .
 ENV  GIN_MODE=release
 RUN  go mod download
-RUN  CGO_ENABLED=0 GOOS=linux go build  -o main  ./...
+RUN  CGO_ENABLED=0 GOOS=linux go build  -o main  
 
 FROM alpine:3.13 as production
 WORKDIR /app
