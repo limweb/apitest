@@ -6,7 +6,6 @@ ENV  GIN_MODE=release
 RUN  go mod download
 
 FROM install  as builder
-RUN mkdir /app
 COPY ./db       /app/db
 COPY ./docs     /app/docs
 COPY ./handler  /app/handler
