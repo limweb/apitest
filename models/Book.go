@@ -1,16 +1,25 @@
 package models
 
-import (
-	"github.com/jinzhu/gorm"
-)
-
-type Book struct {
-	gorm.Model `swaggerignore:"true"`
-	Name       string `json:"name"`
-	Author     string `json:"author"`
-	Category   string `json:"category"`
+type Books struct {
+	Books []Books `json:"books"`
 }
 
-func (b *Book) TableName() string {
-	return "book"
+type Book struct {
+	ModelDefault
+	BookForCreate
+	ID uint `json:"id" gorm:"primary_key" example:"1" ` // Book id
+}
+
+type BookForCreate struct {
+	BookForUpdate
+}
+
+type BookForUpdate struct {
+	Name     string `json:"name" example:"Mr. Aaaa Bbbbb" `  // Book name
+	Author   string `json:"author" example:"Mr. Cccc Dddd" ` // Book author
+	Category string `json:"category" example:"Sea" `         // Book category
+}
+
+func (m *Book) TableName() string {
+	return "books"
 }

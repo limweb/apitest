@@ -40,6 +40,7 @@ func SetupDB() {
 	database.AutoMigrate(&models.Transaction{})
 	database.AutoMigrate(&models.Person{})
 	database.AutoMigrate(&models.Book{})
+	database.AutoMigrate(&models.Test{})
 
 	db = database
 }

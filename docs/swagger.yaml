@@ -2,14 +2,69 @@ definitions:
   models.Book:
     properties:
       author:
+        description: Book author
+        example: Mr. Cccc Dddd
         type: string
       category:
+        description: Book category
+        example: Sea
+        type: string
+      created_at:
+        description: Model Created At
+        example: "2021-02-02 11:11:11"
+        type: string
+      id:
+        description: Book id
+        example: 1
+        type: integer
+      name:
+        description: Book name
+        example: Mr. Aaaa Bbbbb
+        type: string
+      uid:
+        description: Model UUID
+        type: string
+      updated_at:
+        description: Model UPdated At
+        example: "2021-02-02 11:11:11"
+        type: string
+    type: object
+  models.BookForCreate:
+    properties:
+      author:
+        description: Book author
+        example: Mr. Cccc Dddd
+        type: string
+      category:
+        description: Book category
+        example: Sea
         type: string
       name:
+        description: Book name
+        example: Mr. Aaaa Bbbbb
+        type: string
+    type: object
+  models.BookForUpdate:
+    properties:
+      author:
+        description: Book author
+        example: Mr. Cccc Dddd
+        type: string
+      category:
+        description: Book category
+        example: Sea
+        type: string
+      name:
+        description: Book name
+        example: Mr. Aaaa Bbbbb
         type: string
     type: object
   models.Customer:
     properties:
+      created_at:
+        description: Model Created At
+        example: "2021-02-02 11:11:11"
+        type: string
       email:
         description: Customer E-mail
         example: choo@gmail.com
@@ -36,6 +91,10 @@ definitions:
         example: Choosamer
         maxLength: 255
         type: string
+      updated_at:
+        description: Model UPdated At
+        example: "2021-02-02 11:11:11"
+        type: string
       username:
         description: Customer Username
         example: choo
@@ -49,6 +108,10 @@ definitions:
     type: object
   models.CustomerForCreate:
     properties:
+      created_at:
+        description: Model Created At
+        example: "2021-02-02 11:11:11"
+        type: string
       email:
         description: Customer E-mail
         example: choo@gmail.com
@@ -70,6 +133,10 @@ definitions:
         description: Customer Lastname
         example: Choosamer
         maxLength: 255
+        type: string
+      updated_at:
+        description: Model UPdated At
+        example: "2021-02-02 11:11:11"
         type: string
       username:
         description: Customer Username
@@ -84,6 +151,10 @@ definitions:
     type: object
   models.CustomerForUpdate:
     properties:
+      created_at:
+        description: Model Created At
+        example: "2021-02-02 11:11:11"
+        type: string
       email:
         description: Customer E-mail
         example: choo@gmail.com
@@ -105,6 +176,10 @@ definitions:
         description: Customer Lastname
         example: Choosamer
         maxLength: 255
+        type: string
+      updated_at:
+        description: Model UPdated At
+        example: "2021-02-02 11:11:11"
         type: string
     required:
     - email
@@ -120,31 +195,69 @@ definitions:
     type: object
   models.Product:
     properties:
+      created_at:
+        description: Model Created At
+        example: "2021-02-02 11:11:11"
+        type: string
       id:
-        description: Product ID
-        type: integer
+        description: Product id
+        example: "1"
+        type: string
       image:
-        description: Product Image
+        description: Product image
+        example: /aaa/bbb/aaa.jpg
         type: string
       name:
-        description: Product Name
+        description: Product name
+        example: Mr. Aaa Bbbb
         type: string
       price:
-        description: Product Price
+        description: Product price
+        example: 500
         type: number
       stock:
-        description: Product Stock
+        description: Product stock
+        example: 1
         type: integer
-      time:
+      uid:
+        description: Model UUID
+        type: string
+      updated_at:
+        description: Model UPdated At
+        example: "2021-02-02 11:11:11"
         type: string
     type: object
-  models.Response:
+  models.Test:
     properties:
-      code:
-        description: Response Code
+      created_at:
+        description: Model Created At
+        example: "2021-02-02 11:11:11"
+        type: string
+      id:
+        description: Test id
+        example: 1
         type: integer
-      status:
-        description: Response Status
+      name:
+        description: Test name
+        type: string
+      uid:
+        description: Model UUID
+        type: string
+      updated_at:
+        description: Model UPdated At
+        example: "2021-02-02 11:11:11"
+        type: string
+    type: object
+  models.TestForCreate:
+    properties:
+      name:
+        description: Test name
+        type: string
+    type: object
+  models.TestForUpdate:
+    properties:
+      name:
+        description: Test name
         type: string
     type: object
   models.Transaction:
@@ -152,6 +265,10 @@ definitions:
       change:
         description: Transaction Change
         type: number
+      created_at:
+        description: Model Created At
+        example: "2021-02-02 11:11:11"
+        type: string
       id:
         description: Transaction ID
         type: integer
@@ -173,41 +290,43 @@ definitions:
       total:
         description: Transaction Total
         type: number
+      uid:
+        description: Model UUID
+        type: string
+      updated_at:
+        description: Model UPdated At
+        example: "2021-02-02 11:11:11"
+        type: string
     type: object
-  models.User:
+  utils.ResponseData:
     properties:
-      id:
-        description: User ID
+      Title:
+        description: Response type
+        example: Success
+        type: string
+      msg:
+        type: string
+      status:
+        description: Response status
         type: integer
-      level:
-        description: User level
-        enum:
-        - "0"
-        - "1"
-        - "10"
-        - "99"
-        example: "10"
+      success:
+        description: Response success
+        type: boolean
+      type:
+        description: Response type
+        example: success
         type: string
-      password:
-        description: User password
-        type: string
-      username:
-        description: User username
-        type: string
-    required:
-    - password
-    - username
     type: object
 info:
   contact:
-    email: support@somewhere.com
+    email: limweb@hotmail.com
     name: API Support
-    url: http://somewhere.com/support
+    url: http://www.servit.co.th/support
   description: '# Manageing Customer API'
   license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
-  termsOfService: http://somewhere.com/
+    name: The MIT License
+    url: https://opensource.org/licenses/MIT
+  termsOfService: http://www.servit.co.th/
   title: ApiTest
   version: "2.0"
 paths:
@@ -215,8 +334,8 @@ paths:
     get:
       consumes:
       - application/json
-      description: List all Books
-      operationId: listBook
+      description: List all books
+      operationId: ListlastBooks
       produces:
       - application/json
       responses:
@@ -224,27 +343,182 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/models.Book'
+              items:
+                $ref: '#/definitions/models.Book'
+              type: array
             type: array
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/models.Response'
+            $ref: '#/definitions/utils.ResponseData'
         "401":
           description: Unauthorized
           schema:
-            $ref: '#/definitions/models.Response'
+            $ref: '#/definitions/utils.ResponseData'
         "409":
           description: Conflict
           schema:
-            $ref: '#/definitions/models.Response'
+            $ref: '#/definitions/utils.ResponseData'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/models.Response'
+            $ref: '#/definitions/utils.ResponseData'
       security:
       - ApiKeyAuth: []
-      summary: List Book
+      summary: List Books
+      tags:
+      - books
+    post:
+      consumes:
+      - application/json
+      description: Create new book
+      operationId: CreateBook
+      parameters:
+      - description: Book data to be created
+        in: body
+        name: Book
+        required: true
+        schema:
+          $ref: '#/definitions/models.BookForCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: Create Book
+      tags:
+      - books
+  /api/v1/books/:id:
+    delete:
+      consumes:
+      - application/json
+      description: Delete book by id
+      operationId: DeleteBook
+      parameters:
+      - description: id of book to be deleted
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete Book
+      tags:
+      - books
+    patch:
+      consumes:
+      - application/json
+      description: Update book by id
+      operationId: UpdateBook
+      parameters:
+      - description: id of book to be updated
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Book data to be updated
+        in: body
+        name: Book
+        required: true
+        schema:
+          $ref: '#/definitions/models.BookForUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: Update Book
+      tags:
+      - books
+  /api/v1/books/by/:id:
+    get:
+      consumes:
+      - application/json
+      description: Get book by id
+      operationId: GetBook
+      parameters:
+      - description: id of book to be gotten
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+      security:
+      - Basic auth: []
+      summary: Get Book
       tags:
       - books
   /api/v1/customers:
@@ -259,23 +533,25 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.Customers'
+            items:
+              $ref: '#/definitions/models.Customers'
+            type: array
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/models.Response'
+            $ref: '#/definitions/utils.ResponseData'
         "401":
           description: Unauthorized
           schema:
-            $ref: '#/definitions/models.Response'
+            $ref: '#/definitions/utils.ResponseData'
         "409":
           description: Conflict
           schema:
-            $ref: '#/definitions/models.Response'
+            $ref: '#/definitions/utils.ResponseData'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/models.Response'
+            $ref: '#/definitions/utils.ResponseData'
       security:
       - OAuth2: []
       summary: List Customers
@@ -299,19 +575,19 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.Response'
+            $ref: '#/definitions/utils.ResponseData'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/models.Response'
+            $ref: '#/definitions/utils.ResponseData'
         "401":
           description: Unauthorized
           schema:
-            $ref: '#/definitions/models.Response'
+            $ref: '#/definitions/utils.ResponseData'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/models.Response'
+            $ref: '#/definitions/utils.ResponseData'
       security:
       - ApiKeyAuth: []
       summary: Create Customer
@@ -335,19 +611,19 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.Response'
+            $ref: '#/definitions/utils.ResponseData'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/models.Response'
+            $ref: '#/definitions/utils.ResponseData'
         "401":
           description: Unauthorized
           schema:
-            $ref: '#/definitions/models.Response'
+            $ref: '#/definitions/utils.ResponseData'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/models.Response'
+            $ref: '#/definitions/utils.ResponseData'
       security:
       - ApiKeyAuth: []
       summary: Delete Customer
@@ -374,19 +650,19 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/models.Response'
+            $ref: '#/definitions/utils.ResponseData'
         "401":
           description: Unauthorized
           schema:
-            $ref: '#/definitions/models.Response'
+            $ref: '#/definitions/utils.ResponseData'
         "409":
           description: Conflict
           schema:
-            $ref: '#/definitions/models.Response'
+            $ref: '#/definitions/utils.ResponseData'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/models.Response'
+            $ref: '#/definitions/utils.ResponseData'
       security:
       - Basic auth: []
       summary: Get Customer
@@ -415,24 +691,214 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.Response'
+            $ref: '#/definitions/utils.ResponseData'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/models.Response'
+            $ref: '#/definitions/utils.ResponseData'
         "401":
           description: Unauthorized
           schema:
-            $ref: '#/definitions/models.Response'
+            $ref: '#/definitions/utils.ResponseData'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/models.Response'
+            $ref: '#/definitions/utils.ResponseData'
       security:
       - ApiKeyAuth: []
       summary: Update Customer
       tags:
       - customers
+  /api/v1/tests:
+    get:
+      consumes:
+      - application/json
+      description: List all tests
+      operationId: ListlastTests
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              items:
+                $ref: '#/definitions/models.Test'
+              type: array
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: List Tests
+      tags:
+      - tests
+    post:
+      consumes:
+      - application/json
+      description: Create new test
+      operationId: CreateTest
+      parameters:
+      - description: Test data to be created
+        in: body
+        name: Test
+        required: true
+        schema:
+          $ref: '#/definitions/models.TestForCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: Create Test
+      tags:
+      - tests
+  /api/v1/tests/:id:
+    delete:
+      consumes:
+      - application/json
+      description: Delete test by id
+      operationId: DeleteTest
+      parameters:
+      - description: id of test to be deleted
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete Test
+      tags:
+      - tests
+    get:
+      consumes:
+      - application/json
+      description: Get test by id
+      operationId: GetTest
+      parameters:
+      - description: id of test to be gotten
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+      security:
+      - Basic auth: []
+      summary: Get Test
+      tags:
+      - tests
+    patch:
+      consumes:
+      - application/json
+      description: Update test by id
+      operationId: UpdateTest
+      parameters:
+      - description: id of test to be updated
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Test data to be updated
+        in: body
+        name: Test
+        required: true
+        schema:
+          $ref: '#/definitions/models.TestForUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: Update Test
+      tags:
+      - tests
   /healthcheck:
     get:
       description: Health checking for the service
@@ -469,18 +935,6 @@ paths:
           schema:
             $ref: '#/definitions/models.Product'
       summary: Ping
-  /test:
-    get:
-      description: Test for the service
-      operationId: Test
-      produces:
-      - text/plain
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.User'
-      summary: Test
 schemes:
 - https
 - http

@@ -18,15 +18,15 @@ var doc = `{
     "info": {
         "description": "{{.Description}}",
         "title": "{{.Title}}",
-        "termsOfService": "http://somewhere.com/",
+        "termsOfService": "http://www.servit.co.th/",
         "contact": {
             "name": "API Support",
-            "url": "http://somewhere.com/support",
-            "email": "support@somewhere.com"
+            "url": "http://www.servit.co.th/support",
+            "email": "limweb@hotmail.com"
         },
         "license": {
-            "name": "Apache 2.0",
-            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+            "name": "The MIT License",
+            "url": "https://opensource.org/licenses/MIT"
         },
         "version": "{{.Version}}"
     },
@@ -40,7 +40,7 @@ var doc = `{
                         "ApiKeyAuth": []
                     }
                 ],
-                "description": "List all Books",
+                "description": "List all books",
                 "consumes": [
                     "application/json"
                 ],
@@ -50,40 +50,280 @@ var doc = `{
                 "tags": [
                     "books"
                 ],
-                "summary": "List Book",
-                "operationId": "listBook",
+                "summary": "List Books",
+                "operationId": "ListlastBooks",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/models.Book"
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/models.Book"
+                                }
                             }
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/models.Response"
+                            "$ref": "#/definitions/utils.ResponseData"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/models.Response"
+                            "$ref": "#/definitions/utils.ResponseData"
                         }
                     },
                     "409": {
                         "description": "Conflict",
                         "schema": {
-                            "$ref": "#/definitions/models.Response"
+                            "$ref": "#/definitions/utils.ResponseData"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/models.Response"
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Create new book",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "books"
+                ],
+                "summary": "Create Book",
+                "operationId": "CreateBook",
+                "parameters": [
+                    {
+                        "description": "Book data to be created",
+                        "name": "Book",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.BookForCreate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/books/:id": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Delete book by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "books"
+                ],
+                "summary": "Delete Book",
+                "operationId": "DeleteBook",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id of book to be deleted",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Update book by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "books"
+                ],
+                "summary": "Update Book",
+                "operationId": "UpdateBook",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id of book to be updated",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Book data to be updated",
+                        "name": "Book",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.BookForUpdate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/books/by/:id": {
+            "get": {
+                "security": [
+                    {
+                        "Basic auth": []
+                    }
+                ],
+                "description": "Get book by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "books"
+                ],
+                "summary": "Get Book",
+                "operationId": "GetBook",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id of book to be gotten",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
                         }
                     }
                 }
@@ -112,31 +352,34 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Customers"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Customers"
+                            }
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/models.Response"
+                            "$ref": "#/definitions/utils.ResponseData"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/models.Response"
+                            "$ref": "#/definitions/utils.ResponseData"
                         }
                     },
                     "409": {
                         "description": "Conflict",
                         "schema": {
-                            "$ref": "#/definitions/models.Response"
+                            "$ref": "#/definitions/utils.ResponseData"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/models.Response"
+                            "$ref": "#/definitions/utils.ResponseData"
                         }
                     }
                 }
@@ -174,25 +417,25 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Response"
+                            "$ref": "#/definitions/utils.ResponseData"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/models.Response"
+                            "$ref": "#/definitions/utils.ResponseData"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/models.Response"
+                            "$ref": "#/definitions/utils.ResponseData"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/models.Response"
+                            "$ref": "#/definitions/utils.ResponseData"
                         }
                     }
                 }
@@ -236,25 +479,25 @@ var doc = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/models.Response"
+                            "$ref": "#/definitions/utils.ResponseData"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/models.Response"
+                            "$ref": "#/definitions/utils.ResponseData"
                         }
                     },
                     "409": {
                         "description": "Conflict",
                         "schema": {
-                            "$ref": "#/definitions/models.Response"
+                            "$ref": "#/definitions/utils.ResponseData"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/models.Response"
+                            "$ref": "#/definitions/utils.ResponseData"
                         }
                     }
                 }
@@ -290,25 +533,25 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Response"
+                            "$ref": "#/definitions/utils.ResponseData"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/models.Response"
+                            "$ref": "#/definitions/utils.ResponseData"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/models.Response"
+                            "$ref": "#/definitions/utils.ResponseData"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/models.Response"
+                            "$ref": "#/definitions/utils.ResponseData"
                         }
                     }
                 }
@@ -353,25 +596,319 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Response"
+                            "$ref": "#/definitions/utils.ResponseData"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/models.Response"
+                            "$ref": "#/definitions/utils.ResponseData"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/models.Response"
+                            "$ref": "#/definitions/utils.ResponseData"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/models.Response"
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/tests": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "List all tests",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "tests"
+                ],
+                "summary": "List Tests",
+                "operationId": "ListlastTests",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/models.Test"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Create new test",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "tests"
+                ],
+                "summary": "Create Test",
+                "operationId": "CreateTest",
+                "parameters": [
+                    {
+                        "description": "Test data to be created",
+                        "name": "Test",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.TestForCreate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/tests/:id": {
+            "get": {
+                "security": [
+                    {
+                        "Basic auth": []
+                    }
+                ],
+                "description": "Get test by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "tests"
+                ],
+                "summary": "Get Test",
+                "operationId": "GetTest",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id of test to be gotten",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Delete test by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "tests"
+                ],
+                "summary": "Delete Test",
+                "operationId": "DeleteTest",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id of test to be deleted",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Update test by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "tests"
+                ],
+                "summary": "Update Test",
+                "operationId": "UpdateTest",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id of test to be updated",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Test data to be updated",
+                        "name": "Test",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.TestForUpdate"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
                         }
                     }
                 }
@@ -430,24 +967,6 @@ var doc = `{
                     }
                 }
             }
-        },
-        "/test": {
-            "get": {
-                "description": "Test for the service",
-                "produces": [
-                    "text/plain"
-                ],
-                "summary": "Test",
-                "operationId": "Test",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.User"
-                        }
-                    }
-                }
-            }
         }
     },
     "definitions": {
@@ -455,13 +974,78 @@ var doc = `{
             "type": "object",
             "properties": {
                 "author": {
-                    "type": "string"
+                    "description": "Book author",
+                    "type": "string",
+                    "example": "Mr. Cccc Dddd"
                 },
                 "category": {
-                    "type": "string"
+                    "description": "Book category",
+                    "type": "string",
+                    "example": "Sea"
+                },
+                "created_at": {
+                    "description": "Model Created At",
+                    "type": "string",
+                    "example": "2021-02-02 11:11:11"
+                },
+                "id": {
+                    "description": "Book id",
+                    "type": "integer",
+                    "example": 1
                 },
                 "name": {
+                    "description": "Book name",
+                    "type": "string",
+                    "example": "Mr. Aaaa Bbbbb"
+                },
+                "uid": {
+                    "description": "Model UUID",
                     "type": "string"
+                },
+                "updated_at": {
+                    "description": "Model UPdated At",
+                    "type": "string",
+                    "example": "2021-02-02 11:11:11"
+                }
+            }
+        },
+        "models.BookForCreate": {
+            "type": "object",
+            "properties": {
+                "author": {
+                    "description": "Book author",
+                    "type": "string",
+                    "example": "Mr. Cccc Dddd"
+                },
+                "category": {
+                    "description": "Book category",
+                    "type": "string",
+                    "example": "Sea"
+                },
+                "name": {
+                    "description": "Book name",
+                    "type": "string",
+                    "example": "Mr. Aaaa Bbbbb"
+                }
+            }
+        },
+        "models.BookForUpdate": {
+            "type": "object",
+            "properties": {
+                "author": {
+                    "description": "Book author",
+                    "type": "string",
+                    "example": "Mr. Cccc Dddd"
+                },
+                "category": {
+                    "description": "Book category",
+                    "type": "string",
+                    "example": "Sea"
+                },
+                "name": {
+                    "description": "Book name",
+                    "type": "string",
+                    "example": "Mr. Aaaa Bbbbb"
                 }
             }
         },
@@ -474,6 +1058,11 @@ var doc = `{
                 "username"
             ],
             "properties": {
+                "created_at": {
+                    "description": "Model Created At",
+                    "type": "string",
+                    "example": "2021-02-02 11:11:11"
+                },
                 "email": {
                     "description": "Customer E-mail",
                     "type": "string",
@@ -506,6 +1095,11 @@ var doc = `{
                     "maxLength": 255,
                     "example": "Choosamer"
                 },
+                "updated_at": {
+                    "description": "Model UPdated At",
+                    "type": "string",
+                    "example": "2021-02-02 11:11:11"
+                },
                 "username": {
                     "description": "Customer Username",
                     "type": "string",
@@ -523,6 +1117,11 @@ var doc = `{
                 "username"
             ],
             "properties": {
+                "created_at": {
+                    "description": "Model Created At",
+                    "type": "string",
+                    "example": "2021-02-02 11:11:11"
+                },
                 "email": {
                     "description": "Customer E-mail",
                     "type": "string",
@@ -549,6 +1148,11 @@ var doc = `{
                     "type": "string",
                     "maxLength": 255,
                     "example": "Choosamer"
+                },
+                "updated_at": {
+                    "description": "Model UPdated At",
+                    "type": "string",
+                    "example": "2021-02-02 11:11:11"
                 },
                 "username": {
                     "description": "Customer Username",
@@ -566,6 +1170,11 @@ var doc = `{
                 "lastname"
             ],
             "properties": {
+                "created_at": {
+                    "description": "Model Created At",
+                    "type": "string",
+                    "example": "2021-02-02 11:11:11"
+                },
                 "email": {
                     "description": "Customer E-mail",
                     "type": "string",
@@ -592,6 +1201,11 @@ var doc = `{
                     "type": "string",
                     "maxLength": 255,
                     "example": "Choosamer"
+                },
+                "updated_at": {
+                    "description": "Model UPdated At",
+                    "type": "string",
+                    "example": "2021-02-02 11:11:11"
                 }
             }
         },
@@ -609,40 +1223,89 @@ var doc = `{
         "models.Product": {
             "type": "object",
             "properties": {
+                "created_at": {
+                    "description": "Model Created At",
+                    "type": "string",
+                    "example": "2021-02-02 11:11:11"
+                },
                 "id": {
-                    "description": "Product ID",
-                    "type": "integer"
+                    "description": "Product id",
+                    "type": "string",
+                    "example": "1"
                 },
                 "image": {
-                    "description": "Product Image",
-                    "type": "string"
+                    "description": "Product image",
+                    "type": "string",
+                    "example": "/aaa/bbb/aaa.jpg"
                 },
                 "name": {
-                    "description": "Product Name",
-                    "type": "string"
+                    "description": "Product name",
+                    "type": "string",
+                    "example": "Mr. Aaa Bbbb"
                 },
                 "price": {
-                    "description": "Product Price",
-                    "type": "number"
+                    "description": "Product price",
+                    "type": "number",
+                    "example": 500
                 },
                 "stock": {
-                    "description": "Product Stock",
-                    "type": "integer"
+                    "description": "Product stock",
+                    "type": "integer",
+                    "example": 1
                 },
-                "time": {
+                "uid": {
+                    "description": "Model UUID",
+                    "type": "string"
+                },
+                "updated_at": {
+                    "description": "Model UPdated At",
+                    "type": "string",
+                    "example": "2021-02-02 11:11:11"
+                }
+            }
+        },
+        "models.Test": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "description": "Model Created At",
+                    "type": "string",
+                    "example": "2021-02-02 11:11:11"
+                },
+                "id": {
+                    "description": "Test id",
+                    "type": "integer",
+                    "example": 1
+                },
+                "name": {
+                    "description": "Test name",
+                    "type": "string"
+                },
+                "uid": {
+                    "description": "Model UUID",
+                    "type": "string"
+                },
+                "updated_at": {
+                    "description": "Model UPdated At",
+                    "type": "string",
+                    "example": "2021-02-02 11:11:11"
+                }
+            }
+        },
+        "models.TestForCreate": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "Test name",
                     "type": "string"
                 }
             }
         },
-        "models.Response": {
+        "models.TestForUpdate": {
             "type": "object",
             "properties": {
-                "code": {
-                    "description": "Response Code",
-                    "type": "integer"
-                },
-                "status": {
-                    "description": "Response Status",
+                "name": {
+                    "description": "Test name",
                     "type": "string"
                 }
             }
@@ -653,6 +1316,11 @@ var doc = `{
                 "change": {
                     "description": "Transaction Change",
                     "type": "number"
+                },
+                "created_at": {
+                    "description": "Model Created At",
+                    "type": "string",
+                    "example": "2021-02-02 11:11:11"
                 },
                 "id": {
                     "description": "Transaction ID",
@@ -681,38 +1349,41 @@ var doc = `{
                 "total": {
                     "description": "Transaction Total",
                     "type": "number"
+                },
+                "uid": {
+                    "description": "Model UUID",
+                    "type": "string"
+                },
+                "updated_at": {
+                    "description": "Model UPdated At",
+                    "type": "string",
+                    "example": "2021-02-02 11:11:11"
                 }
             }
         },
-        "models.User": {
+        "utils.ResponseData": {
             "type": "object",
-            "required": [
-                "password",
-                "username"
-            ],
             "properties": {
-                "id": {
-                    "description": "User ID",
+                "Title": {
+                    "description": "Response type",
+                    "type": "string",
+                    "example": "Success"
+                },
+                "msg": {
+                    "type": "string"
+                },
+                "status": {
+                    "description": "Response status",
                     "type": "integer"
                 },
-                "level": {
-                    "description": "User level",
+                "success": {
+                    "description": "Response success",
+                    "type": "boolean"
+                },
+                "type": {
+                    "description": "Response type",
                     "type": "string",
-                    "enum": [
-                        "0",
-                        "1",
-                        "10",
-                        "99"
-                    ],
-                    "example": "10"
-                },
-                "password": {
-                    "description": "User password",
-                    "type": "string"
-                },
-                "username": {
-                    "description": "User username",
-                    "type": "string"
+                    "example": "success"
                 }
             }
         }

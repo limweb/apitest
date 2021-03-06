@@ -6,41 +6,41 @@ import (
 	"fmt"
 )
 
-func GetAllBook(b *[]models.Book) (err error) {
+func GetAllOrder(b *[]models.Order) (err error) {
 	if err = db.GetDB().Find(b).Error; err != nil {
 		return err
 	}
 	return nil
 }
 
-func GetAllIdDescBook(b *[]models.Book) (err error) {
+func GetAllIdDescOrder(b *[]models.Order) (err error) {
 	if err = db.GetDB().Order("id desc").Find(b).Error; err != nil {
 		return err
 	}
 	return nil
 }
 
-func AddNewBook(b *models.Book) (err error) {
+func AddNewOrder(b *models.Order) (err error) {
 	if err = db.GetDB().Create(b).Error; err != nil {
 		return err
 	}
 	return nil
 }
 
-func GetOneBook(b *models.Book, id string) (err error) {
+func GetOneOrder(b *models.Order, id string) (err error) {
 	if err := db.GetDB().Where("id = ?", id).First(b).Error; err != nil {
 		return err
 	}
 	return nil
 }
 
-func PutOneBook(b *models.Book, id string) (err error) {
+func PutOneOrder(b *models.Order, id string) (err error) {
 	fmt.Println(b)
 	db.GetDB().Save(b)
 	return nil
 }
 
-func DeleteBook(b *models.Book, id string) (err error) {
+func DeleteOrder(b *models.Order, id string) (err error) {
 	db.GetDB().Where("id = ?", id).Delete(b)
 	return nil
 }

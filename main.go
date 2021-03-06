@@ -2,7 +2,6 @@ package main
 
 import (
 	"apitest/db"
-	"apitest/models"
 	"apitest/webserver"
 	"flag"
 	"log"
@@ -19,14 +18,14 @@ func init() {
 // @title ApiTest
 // @version 2.0
 // @description.markdown
-// @termsOfService http://somewhere.com/
+// @termsOfService http://www.servit.co.th/
 
 // @contact.name API Support
-// @contact.url http://somewhere.com/support
-// @contact.email support@somewhere.com
+// @contact.url http://www.servit.co.th/support
+// @contact.email limweb@hotmail.com
 
-// @license.name Apache 2.0
-// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+// @license.name The MIT License
+// @license.url https://opensource.org/licenses/MIT
 
 // @schemes https http
 
@@ -40,9 +39,5 @@ func main() {
 	port = ":" + port
 	log.Printf("-------------------Starting with WebServer on Port %s --------------------", port)
 	db.SetupDB()
-	p1 := models.Person{FirstName: "John", LastName: "Doe"}
-	p2 := models.Person{FirstName: "Jane", LastName: "Smith"}
-	db.GetDB().Create(&p1)
-	db.GetDB().Create(&p2)
 	webserver.StartWeb(port)
 }

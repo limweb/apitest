@@ -17,7 +17,7 @@ import (
 // @router /message [get]
 func Message(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
-		"message": "Hello World",
+		"message": "Welcome to WebApi V0.0.1",
 	})
 }
 
@@ -31,18 +31,5 @@ func Message(c *gin.Context) {
 func Ping(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "pong",
-	})
-}
-
-// Test godoc
-// @summary Test
-// @description Test for the service
-// @id Test
-// @produce plain
-// @response 200 {object} models.User "OK"
-// @router /test [get]
-func Test(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"message": "test",
 	})
 }

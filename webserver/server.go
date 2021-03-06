@@ -28,12 +28,9 @@ func StartWeb(port string) {
 
 	// Apply the middleware to the router (works on groups too)
 	r.Use(cors.Middleware(config))
-
-	r.Static("/images", "./uploaded/images")
-
+	r.Static("/images", "./publics/upload/images")
 	r.GET("/", controllers.Message)
 	r.GET("/ping", controllers.Ping)
-	r.GET("/test", controllers.Test)
 	r.GET("/healthcheck", controllers.HealthCheckHandler)
 	v1 := r.Group("/api/v1")
 	{
@@ -48,6 +45,7 @@ func StartWeb(port string) {
 		}
 	}
 	controllers.SetupBookRoutes(v1)
+	controllers.SetupTestRoutes(v1)
 	r.GET("/apidoc/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	// log.Fatal((r.Run(":8080")))
 	_ = port
