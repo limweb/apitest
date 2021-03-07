@@ -32,7 +32,7 @@ func Login(c *gin.Context) {
 					jwttoken.Reftoken = queryUser.RememberToken
 					jwttoken.UserID = queryUser.ID
 					jwttoken.Ulevel = queryUser.Level
-					jwttoken.Roles = "Admin"
+					jwttoken.Roles = "---Roles---"
 					utils.RespondJSON(c, 200, jwttoken, alert)
 				}
 			}

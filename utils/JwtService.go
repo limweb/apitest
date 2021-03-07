@@ -20,7 +20,7 @@ func JwtSign(payload models.User) string {
 	atClaims["id"] = payload.ID
 	atClaims["username"] = payload.Username
 	atClaims["level"] = payload.Level
-	atClaims["exp"] = time.Now().Add(time.Minute * 15).Unix()
+	atClaims["exp"] = time.Now().Add(time.Hour * 8).Unix()
 	// Payload end
 
 	at := jwt.NewWithClaims(jwt.SigningMethodHS256, atClaims)
@@ -50,8 +50,8 @@ func JwtVerify(c *gin.Context) {
 		fmt.Println(claims)
 
 		staffID := fmt.Sprintf("%v", claims["id"])
-		username := fmt.Sprintf("%v", claims["jwt_username"])
-		level := fmt.Sprintf("%v", claims["jwt_level"])
+		username := fmt.Sprintf("%v", claims["username"])
+		level := fmt.Sprintf("%v", claims["level"])
 		c.Set("jwt_staff_id", staffID)
 		c.Set("jwt_username", username)
 		c.Set("jwt_level", level)

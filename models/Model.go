@@ -19,6 +19,7 @@ type ModelAtTime struct {
 	ModelUpdatelog
 }
 
+// json:"-"
 type ModelDellog struct {
 	DeletedAt gorm.DeletedAt `json:"deleted_at" gorm:"index" sql:"default:null" swaggerignore:"true" example:"2021-02-02 11:11:11"` //Model Deleted At
 }

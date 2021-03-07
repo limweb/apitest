@@ -36,6 +36,7 @@ func SetupBookRoutes(rg *gin.RouterGroup) {
 // @response 500 {object} utils.ResponseData "Internal Server Error"
 // @Router /api/v1/books [get]
 func listBook(c *gin.Context) {
+	log.Println("--keys--->", c.Keys)
 	var rs []models.Book
 	err := services.GetAllBook(&rs)
 	alert := utils.Alert{Msg: "สำเร็จ", Title: "Success", Type: "success"}
