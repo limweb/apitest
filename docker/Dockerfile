@@ -11,6 +11,7 @@ RUN  go mod download
 FROM install  as builder
 COPY ./main.go  /app/main.go
 COPY ./api.md   /app/api.md
+COPY ./test.db  /app/test.db
 COPY ./db       /app/db
 COPY ./utils   /app/utils
 COPY ./webserver   /app/webserver
@@ -27,4 +28,6 @@ RUN  CGO_ENABLED=0 GOOS=linux go build  -o main
 FROM alpine:3.13 as production
 WORKDIR /app
 COPY --from=builder /app/main /app/main
+COPY ./test.db  /app/test.db
+COPY ./publics  /app/publics
 CMD ["./main"]
