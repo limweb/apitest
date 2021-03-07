@@ -27,8 +27,9 @@ func Login(c *gin.Context) {
 					utils.RespondJSON(c, 404, login, alert)
 				} else {
 					jwttoken := models.Jwttoken{}
-					jwttoken.Token = utils.JwtSign(queryUser)
-					jwttoken.Pubkey = "--public-key----"
+					// jwttoken.Token = utils.JwtSecretSign(queryUser)  // user secret key
+					jwttoken.Token = utils.JwtSign(queryUser) // user private key
+					jwttoken.Pubkey = utils.GetPubkey()
 					jwttoken.Reftoken = queryUser.RememberToken
 					jwttoken.UserID = queryUser.ID
 					jwttoken.Ulevel = queryUser.Level
@@ -47,8 +48,9 @@ func Login(c *gin.Context) {
 					utils.RespondJSON(c, 404, login, alert)
 				} else {
 					jwttoken := models.Jwttoken{}
-					jwttoken.Token = utils.JwtSign(queryUser)
-					jwttoken.Pubkey = "--public-key----"
+					// jwttoken.Token = utils.JwtSecretSign(queryUser)  // user secret key
+					jwttoken.Token = utils.JwtSign(queryUser) // user private key
+					jwttoken.Pubkey = utils.GetPubkey()
 					jwttoken.Reftoken = queryUser.RememberToken
 					jwttoken.UserID = queryUser.ID
 					jwttoken.Ulevel = queryUser.Level

@@ -12,7 +12,8 @@ import (
 
 func SetupBookRoutes(rg *gin.RouterGroup) {
 	router := rg.Group("/books")
-	router.Use(utils.JwtVerify)
+	// router.Use(utils.JwtSecretVerify) // jwt verify with secret key
+	router.Use(utils.JwtVerify) // jwt verify with publickey
 	router.GET("" /* utils.JwtVerify*/, listBook)
 	router.GET("/last/iddesc", listlastBook)
 	router.POST("", addNewBook)
