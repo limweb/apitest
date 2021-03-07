@@ -12,7 +12,7 @@ import (
 // @id Message
 // plain json xml x-www-form-urlencoded
 // @produce plain
-// @response 200 {object} models.Transaction "OK"
+// @response 200 {object} utils.ResponseData "OK"
 // get post put delete patch
 // @router / [get]
 func Message(c *gin.Context) {
@@ -26,7 +26,7 @@ func Message(c *gin.Context) {
 // @description Ping for the service
 // @id Ping
 // @produce plain
-// @response 200 {object} models.Product "OK"
+// @response 200 {object} utils.ResponseData  "OK"
 // @router /ping [get]
 func Ping(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
