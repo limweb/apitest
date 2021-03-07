@@ -14,7 +14,7 @@ import (
 // @produce plain
 // @response 200 {object} models.Transaction "OK"
 // get post put delete patch
-// @router /message [get]
+// @router / [get]
 func Message(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Welcome to WebApi V0.0.1",

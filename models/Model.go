@@ -15,9 +15,16 @@ type ModelDefault struct {
 }
 
 type ModelAtTime struct {
-	CreatedAt time.Time      `json:"created_at" gorm:"autoCreateTime" example:"2021-02-02 11:11:11"`                                // Model Created At
-	UpdatedAt time.Time      `json:"updated_at" gorm:"autoUpdateTime" example:"2021-02-02 11:11:11"`                                // Model UPdated At
+	ModelDellog
+	ModelUpdatelog
+}
+
+type ModelDellog struct {
 	DeletedAt gorm.DeletedAt `json:"deleted_at" gorm:"index" sql:"default:null" swaggerignore:"true" example:"2021-02-02 11:11:11"` //Model Deleted At
+}
+type ModelUpdatelog struct {
+	CreatedAt time.Time `json:"created_at" gorm:"autoCreateTime" example:"2021-02-02 11:11:11"` // Model Created At
+	UpdatedAt time.Time `json:"updated_at" gorm:"autoUpdateTime" example:"2021-02-02 11:11:11"` // Model UPdated At
 }
 
 type ModelUUIDPK struct {

@@ -16,7 +16,7 @@ func init() {
 }
 
 // @title ApiTest
-// @version 2.0
+// @version 1.0
 // @description.markdown
 // @termsOfService http://www.servit.co.th/
 
