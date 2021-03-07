@@ -6,12 +6,17 @@ ENV  GIN_MODE=release
 RUN  go mod download
 
 FROM install  as builder
-COPY ./db       /app/db
-COPY ./docs     /app/docs
-COPY ./handler  /app/handler
-COPY ./model    /app/model
 COPY ./main.go  /app/main.go
 COPY ./api.md   /app/api.md
+COPY ./db       /app/db
+COPY ./utils   /app/utils
+COPY ./webserver   /app/webserver
+COPY ./controllers   /app/controllers
+COPY ./docs     /app/docs
+COPY ./middleware   /app/middleware
+COPY ./models    /app/models
+COPY ./publics   /app/publics
+COPY ./services   /app/services
 WORKDIR /app
 ENV  GIN_MODE=release
 RUN  CGO_ENABLED=0 GOOS=linux go build  -o main  
