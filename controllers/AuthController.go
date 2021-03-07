@@ -3,6 +3,7 @@ package controllers
 // controllers.SetupAuthRoutes(v1)
 import (
 	"apitest/services"
+	"apitest/utils"
 
 	"github.com/gin-gonic/gin"
 )
@@ -13,6 +14,7 @@ func SetupLoginRoutes(rg *gin.Engine) {
 }
 
 func SetupAuthRoutes(rg *gin.Engine) {
+	rg.Use(utils.JwtVerify)
 	rg.GET("refreshtoken", Refreshtoken)
 	rg.POST("resetpass", Resetpass)
 	rg.GET("emailverify", Emailverify)

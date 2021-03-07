@@ -32,23 +32,11 @@ func StartWeb(port string) {
 	r.GET("/", controllers.Message)
 	r.GET("/ping", controllers.Ping)
 	r.GET("/healthcheck", controllers.HealthCheckHandler)
+	r.GET("/apidoc/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	controllers.SetupLoginRoutes(r)
 	controllers.SetupAuthRoutes(r)
 	v1 := r.Group("/api/v1")
-	{
-		customers := v1.Group("/customers")
-		{
-			customersHandler := controllers.CustomerHandler{}
-			customers.GET(":id", customersHandler.GetCustomer)
-			customers.GET("", customersHandler.ListCustomers)
-			customers.POST("", customersHandler.CreateCustomer)
-			customers.DELETE(":id", customersHandler.DeleteCustomer)
-			customers.PATCH(":id", customersHandler.UpdateCustomer)
-		}
-	}
 	controllers.SetupBookRoutes(v1)
-	controllers.SetupTestRoutes(v1)
-	r.GET("/apidoc/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	// log.Fatal((r.Run(":8080")))
 	_ = port
 	// log.Fatal((r.Run(port)))

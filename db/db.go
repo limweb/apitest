@@ -37,11 +37,7 @@ func SetupDB() {
 
 	//----------------Add MigrateDB --------------------------------
 	database.AutoMigrate(&models.User{})
-	database.AutoMigrate(&models.Product{})
-	database.AutoMigrate(&models.Transaction{})
-	database.AutoMigrate(&models.Person{})
 	database.AutoMigrate(&models.Book{})
-	database.AutoMigrate(&models.Test{})
 	database.AutoMigrate(&models.Role{})           //add to Db.go
 	database.AutoMigrate(&models.Premission{})     //add to Db.go
 	database.AutoMigrate(&models.PermissionRole{}) //add to Db.go
