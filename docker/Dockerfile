@@ -1,10 +1,10 @@
-FROM golang:1.16-alpine3.13 as install
+FROM golang:latest as install
 WORKDIR /app
 COPY go.mod  /app/go.mod
 COPY go.sum  /app/go.sum
 ENV  GIN_MODE=release
 RUN  go mod download
-RUN  go get github.com/mattn/go-sqlite
+
 FROM install  as builder
 COPY ./main.go  /app/main.go
 COPY ./api.md   /app/api.md
@@ -21,7 +21,7 @@ WORKDIR /app
 ENV  GIN_MODE=release
 RUN  CGO_ENABLED=1 GOOS=linux go build  -o main  
 
-# FROM alpine:3.13 as production
-# WORKDIR /app
-# COPY --from=builder /app /app
+FROM alpine:3.13 as production
+WORKDIR /app
+COPY --from=builder /app/main /app/main
 CMD ["./main"]
