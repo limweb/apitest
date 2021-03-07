@@ -23,5 +23,5 @@ RUN  CGO_ENABLED=0 GOOS=linux go build  -o main
 
 FROM alpine:3.13 as production
 WORKDIR /app
-COPY --from=builder /app/main /app/main
+COPY --from=builder /app /app
 CMD ["./main"]
