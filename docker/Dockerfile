@@ -18,9 +18,10 @@ COPY ./middleware   /app/middleware
 COPY ./models    /app/models
 COPY ./publics   /app/publics
 COPY ./services   /app/services
-WORKDIR /app
 ENV  GIN_MODE=release
-RUN  CGO_ENABLED=0 GOOS=linux go build  -o main  
+WORKDIR /app
+RUN  GOOS=linux go build  -o main  
+# RUN  CGO_ENABLED=0 GOOS=linux go build  -o main  
 # FROM golang:latest as production
 # WORKDIR /app
 # COPY --from=builder /app/main /app/main
