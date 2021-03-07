@@ -4,8 +4,7 @@ COPY go.mod  /app/go.mod
 COPY go.sum  /app/go.sum
 ENV  GIN_MODE=release
 RUN  go mod download
-RUN  go install github.com/mattn/go-sqlite
-
+RUN  go get github.com/mattn/go-sqlite
 FROM install  as builder
 COPY ./main.go  /app/main.go
 COPY ./api.md   /app/api.md
