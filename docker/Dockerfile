@@ -22,9 +22,9 @@ ENV  GIN_MODE=release
 WORKDIR /app
 RUN  GOOS=linux go build  -o main  
 # RUN  CGO_ENABLED=0 GOOS=linux go build  -o main  
-# FROM golang:latest as production
-# WORKDIR /app
-# COPY --from=builder /app/main /app/main
-# COPY ./test.db  /app/test.db
-# COPY ./publics  /app/publics
+FROM golang:latest as production
+WORKDIR /app
+COPY --from=builder /app/main /app/main
+COPY ./test.db  /app/test.db
+COPY ./publics  /app/publics
 CMD ["./main"]

@@ -5,7 +5,7 @@ services:
     build:
       context: ../
       dockerfile: docker/Dockerfile
-    image: "testapi"
+    image: "limweb/testapi"
     container_name: goapitest
     working_dir: /app
     restart: "always"
