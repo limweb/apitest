@@ -49,9 +49,9 @@ func RespondJSON(w *gin.Context, status int, payload interface{}, alert Alert) {
 		"meta":    res.Meta,
 		"data":    res.Data,
 		"success": res.Success,
-		"type":    alert.Type,
-		"title":   alert.Title,
-		"msg":     alert.Msg,
-		"alert":   alert,
+		// "type":    alert.Type,
+		// "title":   alert.Title,
+		// "msg":     alert.Msg,
+		"alert": alert,
 	})
 }

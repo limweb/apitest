@@ -193,6 +193,17 @@ definitions:
           $ref: '#/definitions/models.Customer'
         type: array
     type: object
+  models.Login:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    type: object
   models.Product:
     properties:
       created_at:
@@ -298,6 +309,52 @@ definitions:
         example: "2021-02-02 11:11:11"
         type: string
     type: object
+  models.User:
+    properties:
+      created_at:
+        description: Model Created At
+        example: "2021-02-02 11:11:11"
+        type: string
+      email:
+        description: User email
+        example: a@email.com
+        type: string
+      id:
+        description: User id
+        example: 1
+        type: integer
+      level:
+        description: User level
+        example: 99
+        type: integer
+      name:
+        description: User password
+        example: 'Mr. A '
+        type: string
+      password:
+        description: User password
+        example: P@ssw0rd999
+        type: string
+      reftoken:
+        description: User token
+        example: aaaaa.bbbbbb.cccccc
+        type: string
+      telephone:
+        description: User telephone
+        example: "0816477729"
+        type: string
+      uid:
+        description: Model UUID
+        type: string
+      updated_at:
+        description: Model UPdated At
+        example: "2021-02-02 11:11:11"
+        type: string
+      username:
+        description: User name
+        example: usera
+        type: string
+    type: object
   utils.ResponseData:
     properties:
       Title:
@@ -328,8 +385,20 @@ info:
     url: https://opensource.org/licenses/MIT
   termsOfService: http://www.servit.co.th/
   title: ApiTest
-  version: "2.0"
+  version: "1.0"
 paths:
+  /:
+    get:
+      description: Message for the service
+      operationId: Message
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Transaction'
+      summary: Message
   /api/v1/books:
     get:
       consumes:
@@ -899,6 +968,44 @@ paths:
       summary: Update Test
       tags:
       - tests
+  /emailverify:
+    get:
+      consumes:
+      - application/json
+      description: List all auths
+      operationId: Emailverify
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              items:
+                $ref: '#/definitions/models.Login'
+              type: array
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: List Auths
+      tags:
+      - auths
   /healthcheck:
     get:
       description: Health checking for the service
@@ -911,18 +1018,35 @@ paths:
           schema:
             type: string
       summary: Health Check
-  /message:
-    get:
-      description: Message for the service
-      operationId: Message
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Login with username/email  and password
+      operationId: Login
+      parameters:
+      - description: Login info
+        in: body
+        name: login
+        required: true
+        schema:
+          $ref: '#/definitions/models.Login'
       produces:
-      - text/plain
+      - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.Transaction'
-      summary: Message
+            items:
+              $ref: '#/definitions/models.User'
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+      summary: Login Auths
+      tags:
+      - auths
   /ping:
     get:
       description: Ping for the service
@@ -935,6 +1059,113 @@ paths:
           schema:
             $ref: '#/definitions/models.Product'
       summary: Ping
+  /refreshtoken:
+    get:
+      consumes:
+      - application/json
+      description: List all auths
+      operationId: Refreshtoken
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              items:
+                $ref: '#/definitions/models.Login'
+              type: array
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: List Auths
+      tags:
+      - auths
+  /register:
+    post:
+      consumes:
+      - application/json
+      description: Register User
+      operationId: Register
+      parameters:
+      - description: User info
+        in: body
+        name: login
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              items:
+                $ref: '#/definitions/models.Login'
+              type: array
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+      summary: Register Auths
+      tags:
+      - auths
+  /resetpass:
+    post:
+      consumes:
+      - application/json
+      description: List all auths
+      operationId: Resetpass
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              items:
+                $ref: '#/definitions/models.Login'
+              type: array
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: List Auths
+      tags:
+      - auths
 schemes:
 - https
 - http

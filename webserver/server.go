@@ -32,6 +32,8 @@ func StartWeb(port string) {
 	r.GET("/", controllers.Message)
 	r.GET("/ping", controllers.Ping)
 	r.GET("/healthcheck", controllers.HealthCheckHandler)
+	controllers.SetupLoginRoutes(r)
+	controllers.SetupAuthRoutes(r)
 	v1 := r.Group("/api/v1")
 	{
 		customers := v1.Group("/customers")
