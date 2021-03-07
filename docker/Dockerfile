@@ -1,4 +1,4 @@
-FROM golang:1.16-alpine3.13 as install
+FROM golang:latest as install
 RUN apk add --no-cache tzdata
 RUN apk --update --no-cache add curl
 RUN apk add --no-cache ca-certificates
@@ -25,7 +25,7 @@ WORKDIR /app
 ENV  GIN_MODE=release
 RUN  CGO_ENABLED=0 GOOS=linux go build  -o main  
 
-FROM alpine:3.13 as production
+FROM golang:latest as production
 WORKDIR /app
 COPY --from=builder /app/main /app/main
 COPY ./test.db  /app/test.db
