@@ -160,12 +160,12 @@ paths:
           schema:
             $ref: '#/definitions/utils.ResponseData'
       summary: Message
-  /api/v1/books:
+  /api/v1/books/all:
     get:
       consumes:
       - application/json
       description: List all books
-      operationId: ListlastBooks
+      operationId: ListBooks
       produces:
       - application/json
       responses:
@@ -198,18 +198,18 @@ paths:
       summary: List Books
       tags:
       - books
-    post:
+  /api/v1/books/by/{id}:
+    get:
       consumes:
       - application/json
-      description: Create new book
-      operationId: CreateBook
+      description: Get book by id
+      operationId: GetBook
       parameters:
-      - description: Book data to be created
-        in: body
-        name: Book
+      - description: id of book to be gotten
+        in: path
+        name: id
         required: true
-        schema:
-          $ref: '#/definitions/models.BookForCreate'
+        type: integer
       produces:
       - application/json
       responses:
@@ -225,17 +225,21 @@ paths:
           description: Unauthorized
           schema:
             $ref: '#/definitions/utils.ResponseData'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
         "500":
           description: Internal Server Error
           schema:
             $ref: '#/definitions/utils.ResponseData'
       security:
-      - ApiKeyAuth: []
-      summary: Create Book
+      - Basic auth: []
+      summary: Get Book
       tags:
       - books
-  /api/v1/books/:id:
-    delete:
+  /api/v1/books/del/{id}:
+    get:
       consumes:
       - application/json
       description: Delete book by id
@@ -270,7 +274,8 @@ paths:
       summary: Delete Book
       tags:
       - books
-    patch:
+  /api/v1/books/edit/{id}:
+    post:
       consumes:
       - application/json
       description: Update book by id
@@ -311,25 +316,23 @@ paths:
       summary: Update Book
       tags:
       - books
-  /api/v1/books/by/:id:
+  /api/v1/books/last:
     get:
       consumes:
       - application/json
-      description: Get book by id
-      operationId: GetBook
-      parameters:
-      - description: id of book to be gotten
-        in: path
-        name: id
-        required: true
-        type: integer
+      description: List all books
+      operationId: ListlastBooks
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/utils.ResponseData'
+            items:
+              items:
+                $ref: '#/definitions/models.Book'
+              type: array
+            type: array
         "400":
           description: Bad Request
           schema:
@@ -347,8 +350,45 @@ paths:
           schema:
             $ref: '#/definitions/utils.ResponseData'
       security:
-      - Basic auth: []
-      summary: Get Book
+      - ApiKeyAuth: []
+      summary: List Books
+      tags:
+      - books
+  /api/v1/books/new:
+    post:
+      consumes:
+      - application/json
+      description: Create new book
+      operationId: CreateBook
+      parameters:
+      - description: Book data to be created
+        in: body
+        name: Book
+        required: true
+        schema:
+          $ref: '#/definitions/models.BookForCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: Create Book
       tags:
       - books
   /emailverify:

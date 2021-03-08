@@ -3,8 +3,21 @@
 - docker support    ok
 - flag arement      ok
 - gorm database     ok
-- jwt 
-- ...
+- jwt               ok
+- vuetable          
+- hasOne
+- hsaMany
+- Gorm Relationship
+
+
+//ก่อนจะทำอะไรให้ติดตั้ง  2  ตัว 1  ไว้ทำ hot reload   2. ไว้ gen apidoc
+//เป็นตัว swag ไว้ gen apidoc
+go get -u github.com/swaggo/swag/cmd/swag
+
+//gin ไว้ทำ hot reload
+//https://medium.com/thipwriteblog/golang-live-reload-4e1f96648b80  วิธีใช้
+go get github.com/codegangsta/gin
+
 
 //build cammand
 swag int --md ./

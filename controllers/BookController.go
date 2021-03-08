@@ -1,25 +1,24 @@
 package controllers
 
-// controllers.SetupBookRoutes(v1)
 import (
 	"apitest/models"
 	"apitest/services"
 	"apitest/utils"
-	"log"
 
 	"github.com/gin-gonic/gin"
 )
 
+//*** เพื่อให้ routes ต่อไปนี้ทำงานต้องนำ บันทึก routes ไปเพิ่มใน server.go
+// controllers.SetupBookRoutes(v1)
 func SetupBookRoutes(rg *gin.RouterGroup) {
 	router := rg.Group("/books")
-	// router.Use(utils.JwtSecretVerify) // jwt verify with secret key
-	router.Use(utils.JwtVerify) // jwt verify with publickey
-	router.GET("" /* utils.JwtVerify*/, listBook)
-	router.GET("/last/iddesc", listlastBook)
-	router.POST("", addNewBook)
+	router.Use(utils.JwtVerify) // jwt verify with secret key ถ้าต้องการให้ auth ด้วย jwt
+	router.GET("/all", listBook)
+	router.GET("/last", listlastBook)
 	router.GET("/by/:id", getOneBook)
-	router.PUT("", putOneBook)
-	router.DELETE("/:id", deleteBook)
+	router.GET("/del/:id", deleteBook)
+	router.POST("/new", addNewBook)
+	router.POST("/edit/:id", putOneBook)
 }
 
 // ListBooks godoc
@@ -35,9 +34,8 @@ func SetupBookRoutes(rg *gin.RouterGroup) {
 // @response 401 {object} utils.ResponseData "Unauthorized"
 // @response 409 {object} utils.ResponseData "Conflict"
 // @response 500 {object} utils.ResponseData "Internal Server Error"
-// @Router /api/v1/books [get]
+// @Router /api/v1/books/all [get]
 func listBook(c *gin.Context) {
-	log.Println("--keys--->", c.Keys)
 	var rs []models.Book
 	err := services.GetAllBook(&rs)
 	alert := utils.Alert{Msg: "สำเร็จ", Title: "Success", Type: "success"}
@@ -62,7 +60,7 @@ func listBook(c *gin.Context) {
 // @response 401 {object} utils.ResponseData "Unauthorized"
 // @response 409 {object} utils.ResponseData "Conflict"
 // @response 500 {object} utils.ResponseData "Internal Server Error"
-// @Router /api/v1/books [get]
+// @Router /api/v1/books/last [get]
 func listlastBook(c *gin.Context) {
 	var rs []models.Book
 	err := services.GetAllIdDescBook(&rs)
@@ -88,7 +86,7 @@ func listlastBook(c *gin.Context) {
 // @response 400 {object} utils.ResponseData "Bad Request"
 // @response 401 {object} utils.ResponseData "Unauthorized"
 // @response 500 {object} utils.ResponseData "Internal Server Error"
-// @Router /api/v1/books [post]
+// @Router /api/v1/books/new [post]
 func addNewBook(c *gin.Context) {
 	var rs models.Book
 	c.BindJSON(&rs)
@@ -116,10 +114,9 @@ func addNewBook(c *gin.Context) {
 // @response 401 {object} utils.ResponseData "Unauthorized"
 // @response 409 {object} utils.ResponseData "Conflict"
 // @response 500 {object} utils.ResponseData "Internal Server Error"
-// @Router /api/v1/books/by/:id [get]
+// @Router /api/v1/books/by/{id} [get]
 func getOneBook(c *gin.Context) {
 	id := c.Params.ByName("id")
-	log.Println("-bookid--->", id)
 	var rs models.Book
 	err := services.GetOneBook(&rs, id)
 	alert := utils.Alert{Msg: "สำเร็จ", Title: "Success", Type: "success"}
@@ -145,7 +142,7 @@ func getOneBook(c *gin.Context) {
 // @response 400 {object} utils.ResponseData "Bad Request"
 // @response 401 {object} utils.ResponseData "Unauthorized"
 // @response 500 {object} utils.ResponseData "Internal Server Error"
-// @Router /api/v1/books/:id [patch]
+// @Router /api/v1/books/edit/{id} [post]
 func putOneBook(c *gin.Context) {
 	var rs models.Book
 	id := c.Params.ByName("id")
@@ -178,7 +175,7 @@ func putOneBook(c *gin.Context) {
 // @response 400 {object} utils.ResponseData "Bad Request"
 // @response 401 {object} utils.ResponseData "Unauthorized"
 // @response 500 {object} utils.ResponseData "Internal Server Error"
-// @Router /api/v1/books/:id [delete]
+// @Router /api/v1/books/del/{id} [get]
 func deleteBook(c *gin.Context) {
 	var rs models.Book
 	id := c.Params.ByName("id")

@@ -51,7 +51,7 @@ var doc = `{
                 }
             }
         },
-        "/api/v1/books": {
+        "/api/v1/books/all": {
             "get": {
                 "security": [
                     {
@@ -69,7 +69,7 @@ var doc = `{
                     "books"
                 ],
                 "summary": "List Books",
-                "operationId": "ListlastBooks",
+                "operationId": "ListBooks",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -108,14 +108,16 @@ var doc = `{
                         }
                     }
                 }
-            },
-            "post": {
+            }
+        },
+        "/api/v1/books/by/{id}": {
+            "get": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "Basic auth": []
                     }
                 ],
-                "description": "Create new book",
+                "description": "Get book by id",
                 "consumes": [
                     "application/json"
                 ],
@@ -125,17 +127,15 @@ var doc = `{
                 "tags": [
                     "books"
                 ],
-                "summary": "Create Book",
-                "operationId": "CreateBook",
+                "summary": "Get Book",
+                "operationId": "GetBook",
                 "parameters": [
                     {
-                        "description": "Book data to be created",
-                        "name": "Book",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.BookForCreate"
-                        }
+                        "type": "integer",
+                        "description": "id of book to be gotten",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -157,6 +157,12 @@ var doc = `{
                             "$ref": "#/definitions/utils.ResponseData"
                         }
                     },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
@@ -166,8 +172,8 @@ var doc = `{
                 }
             }
         },
-        "/api/v1/books/:id": {
-            "delete": {
+        "/api/v1/books/del/{id}": {
+            "get": {
                 "security": [
                     {
                         "ApiKeyAuth": []
@@ -220,8 +226,10 @@ var doc = `{
                         }
                     }
                 }
-            },
-            "patch": {
+            }
+        },
+        "/api/v1/books/edit/{id}": {
+            "post": {
                 "security": [
                     {
                         "ApiKeyAuth": []
@@ -285,14 +293,14 @@ var doc = `{
                 }
             }
         },
-        "/api/v1/books/by/:id": {
+        "/api/v1/books/last": {
             "get": {
                 "security": [
                     {
-                        "Basic auth": []
+                        "ApiKeyAuth": []
                     }
                 ],
-                "description": "Get book by id",
+                "description": "List all books",
                 "consumes": [
                     "application/json"
                 ],
@@ -302,15 +310,76 @@ var doc = `{
                 "tags": [
                     "books"
                 ],
-                "summary": "Get Book",
-                "operationId": "GetBook",
+                "summary": "List Books",
+                "operationId": "ListlastBooks",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/models.Book"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/books/new": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Create new book",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "books"
+                ],
+                "summary": "Create Book",
+                "operationId": "CreateBook",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "description": "id of book to be gotten",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
+                        "description": "Book data to be created",
+                        "name": "Book",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.BookForCreate"
+                        }
                     }
                 ],
                 "responses": {
@@ -328,12 +397,6 @@ var doc = `{
                     },
                     "401": {
                         "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/utils.ResponseData"
-                        }
-                    },
-                    "409": {
-                        "description": "Conflict",
                         "schema": {
                             "$ref": "#/definitions/utils.ResponseData"
                         }
