@@ -1,48 +1,79 @@
 package db
 
 import (
+	"apitest/config"
 	"apitest/models"
-	"log"
+	"fmt"
 
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
+	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 
-var db *gorm.DB
+var (
+	dB    *gorm.DB
+	err   error
+	DBErr error
+)
 
-// GetDB - call this method to get db
-func GetDB() *gorm.DB {
-	return db
+type Database struct {
+	*gorm.DB
 }
 
-// SetupDB - setup dabase for sharing to all api
 func SetupDB() {
-	log.Println("------Setup DB-----------")
-	// sqlite "gorm.io/driver/sqlite"
-	database, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+	db := dB
+	config := config.GetConfig()
+	driver := config.Database.Driver
+	database := config.Database.Dbname
+	username := config.Database.Username
+	password := config.Database.Password
+	host := config.Database.Host
+	port := config.Database.Port
 
-	// mysql "gorm.io/driver/mysql"
-	// dsn := "root:@tcp(127.0.0.1:3306)/cmgostock?charset=utf8mb4&parseTime=True&loc=Local"
-	// database, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
-
-	// postgresql 	"gorm.io/driver/postgres"
-	// dsn := "user=postgres password=12341234 dbname=cmgostock port=5432 sslmode=disable TimeZone=Asia/Bangkok"
-	// database, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
-
-	// go get -u gorm.io/driver/sqlserver
-
-	if err != nil {
-		panic("failed to connect database")
+	if driver == "sqlite" {
+		db, err = gorm.Open("sqlite3", "./webapi.db")
+		if err != nil {
+			DBErr = err
+			fmt.Println("db err: ", err)
+		}
+	} else if driver == "postgres" {
+		db, err = gorm.Open("postgres", "host="+host+" port="+port+" user="+username+" dbname="+database+"  sslmode=disable password="+password)
+		if err != nil {
+			DBErr = err
+			fmt.Println("db err: ", err)
+		}
+	} else if driver == "mysql" {
+		db, err = gorm.
+		Open("mysql", username+":"+password+"@tcp("+host+":"+port+")/"+database+"?charset=utf8&parseTime=True&loc=Local")
+		if err != nil {
+			DBErr = err
+			fmt.Println("db err: ", err)
+		}
 	}
 
-	//----------------Add MigrateDB --------------------------------
-	database.AutoMigrate(&models.User{})
-	database.AutoMigrate(&models.Book{})
-	database.AutoMigrate(&models.Role{})           //add to Db.go
-	database.AutoMigrate(&models.Premission{})     //add to Db.go
-	database.AutoMigrate(&models.PermissionRole{}) //add to Db.go
-	database.AutoMigrate(&models.RoleUser{})       //add to Db.go
-	database.AutoMigrate(&models.PasswordResets{}) //add to Db.go
+	// Change this to true if you want to see SQL queries
+	// ไว้แสดง Sql ออกทาง Log เมื่อต้องการ Debug คำสั่ง Sql
+	db.LogMode(config.Database.LogMode)
 
-	db = database
+	//----------------Add MigrateDB --------------------------------
+	db.AutoMigrate(&models.User{})
+	db.AutoMigrate(&models.Book{})
+	db.AutoMigrate(&models.Role{})
+	db.AutoMigrate(&models.Premission{})
+	db.AutoMigrate(&models.PermissionRole{})
+	db.AutoMigrate(&models.RoleUser{})
+	db.AutoMigrate(&models.PasswordResets{})
+
+	dB = db
+}
+
+// GetDB helps you to get a connection
+func GetDB() *gorm.DB {
+	return dB
+}
+
+// GetDBErr helps you to get a connection
+func GetDBErr() error {
+	return DBErr
 }

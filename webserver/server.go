@@ -31,6 +31,7 @@ func StartWeb(port string) {
 	r.Static("/images", "./publics/upload/images")
 	r.GET("/", controllers.Message)
 	r.GET("/ping", controllers.Ping)
+	r.GET("/test", controllers.Test)
 	r.GET("/healthcheck", controllers.HealthCheckHandler)
 	r.GET("/apidoc/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	controllers.SetupLoginRoutes(r)

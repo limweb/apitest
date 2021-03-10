@@ -19,8 +19,8 @@ import (
 
 // location of the files used for signing and verification
 const (
-	privKeyPath = "./utils/sample_key"     // openssl genrsa -out app.rsa keysize
-	pubKeyPath  = "./utils/sample_key.pub" // openssl rsa -in app.rsa -pubout > app.rsa.pub
+	privKeyPath = "./utils/private.key" // openssl genrsa -out app.rsa keysize
+	pubKeyPath  = "./utils/public.key"  // openssl rsa -in app.rsa -pubout > app.rsa.pub
 )
 
 var (
@@ -56,9 +56,10 @@ func fatal(err error) {
 
 // Define some custom types were going to use within our tokens
 type CustomerInfo struct {
-	Username string `json:"username"`
-	Level    uint   `json:"level"`
-	ID       uint   `json:"id"`
+	Username string         `json:"username"`
+	Level    uint           `json:"level"`
+	ID       uint           `json:"id"`
+	Roles    []*models.Role `json:"roles"`
 }
 
 type CustomClaimsExample struct {
@@ -77,14 +78,14 @@ func JwtVerify(c *gin.Context) {
 }
 
 func jwtpkSign(payload models.User) string {
-	log.Println("-------private key sign jwt token---------")
+	log.Println("-------private key sign jwt token---------", payload)
 	t := jwt.New(jwt.GetSigningMethod("RS256"))
 	t.Claims = &CustomClaimsExample{
 		&jwt.StandardClaims{
 			// see http://tools.ietf.org/html/draft-ietf-oauth-json-web-token-20#section-4.1.4
 			ExpiresAt: time.Now().Add(time.Hour * 8).Unix(),
 		},
-		CustomerInfo{payload.Name, payload.Level, payload.ID},
+		CustomerInfo{payload.Name, payload.Level, payload.ID, payload.Roles},
 	}
 	token, err := t.SignedString(signKey)
 	fatal(err)

@@ -9,6 +9,12 @@
 - hsaMany
 - Gorm Relationship
 
+https://farthai-api.shopsthai.com/api/istabs/vuetable?
+page=2
+&per_page=4
+&sort=typecode|asc,volue|desc
+&kw=xxx
+&filter=field|aaaa,field2|bbbbbb
 
 //ก่อนจะทำอะไรให้ติดตั้ง  2  ตัว 1  ไว้ทำ hot reload   2. ไว้ gen apidoc
 //เป็นตัว swag ไว้ gen apidoc

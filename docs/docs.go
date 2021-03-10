@@ -410,6 +410,94 @@ var doc = `{
                 }
             }
         },
+        "/api/v1/books/vuetable": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "List all books with pagination keyword filter by column Sort columns",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "books"
+                ],
+                "summary": "List Books use VueTable",
+                "operationId": "vuetableBook",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "number of page",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "get number of per_page",
+                        "name": "per_page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "soft by cols exm: col1|asc,col2|desc",
+                        "name": "sort",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "search with column exm: col1|aaa,col2|bbb  by filter",
+                        "name": "filter",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "search by kw exm: aaa bbb ccc ",
+                        "name": "kw",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Book"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    }
+                }
+            }
+        },
         "/emailverify": {
             "get": {
                 "security": [
@@ -713,6 +801,24 @@ var doc = `{
                     }
                 }
             }
+        },
+        "/test": {
+            "get": {
+                "description": "Ping for the service",
+                "produces": [
+                    "text/plain"
+                ],
+                "summary": "Ping",
+                "operationId": "Test",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ResponseData"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -735,9 +841,8 @@ var doc = `{
                     "example": "2021-02-02 11:11:11"
                 },
                 "id": {
-                    "description": "Book id",
-                    "type": "integer",
-                    "example": 1
+                    "description": "Model id pk",
+                    "type": "integer"
                 },
                 "name": {
                     "description": "Book name",
@@ -812,6 +917,35 @@ var doc = `{
                 }
             }
         },
+        "models.Role": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "description": "Model Created At",
+                    "type": "string",
+                    "example": "2021-02-02 11:11:11"
+                },
+                "id": {
+                    "description": "Role id",
+                    "type": "integer",
+                    "example": 1
+                },
+                "name": {
+                    "description": "Role name",
+                    "type": "string",
+                    "example": "Admin"
+                },
+                "uid": {
+                    "description": "Model UUID",
+                    "type": "string"
+                },
+                "updated_at": {
+                    "description": "Model UPdated At",
+                    "type": "string",
+                    "example": "2021-02-02 11:11:11"
+                }
+            }
+        },
         "models.User": {
             "type": "object",
             "properties": {
@@ -826,9 +960,8 @@ var doc = `{
                     "example": "a@email.com"
                 },
                 "id": {
-                    "description": "User id",
-                    "type": "integer",
-                    "example": 1
+                    "description": "Model id pk",
+                    "type": "integer"
                 },
                 "level": {
                     "description": "User level",
@@ -849,6 +982,12 @@ var doc = `{
                     "description": "User token",
                     "type": "string",
                     "example": "aaaaa.bbbbbb.cccccc"
+                },
+                "roles": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Role"
+                    }
                 },
                 "telephone": {
                     "description": "User telephone",
@@ -874,26 +1013,15 @@ var doc = `{
         "utils.ResponseData": {
             "type": "object",
             "properties": {
-                "Title": {
-                    "description": "Response type",
-                    "type": "string",
-                    "example": "Success"
-                },
-                "msg": {
-                    "type": "string"
-                },
                 "status": {
                     "description": "Response status",
                     "type": "integer"
                 },
                 "success": {
                     "description": "Response success",
-                    "type": "boolean"
-                },
-                "type": {
-                    "description": "Response type",
-                    "type": "string",
-                    "example": "success"
+                    "type": "boolean",
+                    "default": true,
+                    "example": true
                 }
             }
         }

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"apitest/config"
 	"apitest/db"
 	"apitest/webserver"
 	"flag"
@@ -12,6 +13,7 @@ var (
 )
 
 func init() {
+	log.Println("----init start-----")
 	flag.StringVar(&port, "port", "8080", "web port 8080")
 }
 
@@ -34,10 +36,14 @@ func init() {
 // @name Authorization
 func main() {
 	flag.Parse()
+	config.Setup()
+	db.SetupDB()
+	if port != "8080" {
+		config.Config.Server.Port = port
+	}
+	port = ":" + port
 	log.Printf("----------------------  Web Server Api  V 0.0.1   --------------------------")
 	log.Printf("----------------------วิธีใช้: server.exe -port 8080 --------------------------")
-	port = ":" + port
-	log.Printf("-------------------Starting with WebServer on Port %s --------------------", port)
-	db.SetupDB()
+	log.Printf("-------------------Server is starting at 127.0.0.1:%s -------------------", config.Config.Server.Port)
 	webserver.StartWeb(port)
 }

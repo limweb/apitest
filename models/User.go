@@ -14,7 +14,7 @@ type Users struct {
 type User struct {
 	ModelDefault
 	UserForCreate
-	ID uint `json:"id" gorm:"primary_key" example:"1" ` // User id
+	Roles []*Role `gorm:"many2many:role_users"`
 }
 
 type UserForCreate struct {

@@ -14,8 +14,7 @@ definitions:
         example: "2021-02-02 11:11:11"
         type: string
       id:
-        description: Book id
-        example: 1
+        description: Model id pk
         type: integer
       name:
         description: Book name
@@ -70,6 +69,28 @@ definitions:
     required:
     - password
     type: object
+  models.Role:
+    properties:
+      created_at:
+        description: Model Created At
+        example: "2021-02-02 11:11:11"
+        type: string
+      id:
+        description: Role id
+        example: 1
+        type: integer
+      name:
+        description: Role name
+        example: Admin
+        type: string
+      uid:
+        description: Model UUID
+        type: string
+      updated_at:
+        description: Model UPdated At
+        example: "2021-02-02 11:11:11"
+        type: string
+    type: object
   models.User:
     properties:
       created_at:
@@ -81,8 +102,7 @@ definitions:
         example: a@email.com
         type: string
       id:
-        description: User id
-        example: 1
+        description: Model id pk
         type: integer
       level:
         description: User level
@@ -100,6 +120,10 @@ definitions:
         description: User token
         example: aaaaa.bbbbbb.cccccc
         type: string
+      roles:
+        items:
+          $ref: '#/definitions/models.Role'
+        type: array
       telephone:
         description: User telephone
         example: "0816477729"
@@ -118,22 +142,14 @@ definitions:
     type: object
   utils.ResponseData:
     properties:
-      Title:
-        description: Response type
-        example: Success
-        type: string
-      msg:
-        type: string
       status:
         description: Response status
         type: integer
       success:
+        default: true
         description: Response success
+        example: true
         type: boolean
-      type:
-        description: Response type
-        example: success
-        type: string
     type: object
 info:
   contact:
@@ -391,6 +407,63 @@ paths:
       summary: Create Book
       tags:
       - books
+  /api/v1/books/vuetable:
+    get:
+      consumes:
+      - application/json
+      description: List all books with pagination keyword filter by column Sort columns
+      operationId: vuetableBook
+      parameters:
+      - description: number of page
+        in: query
+        name: page
+        type: string
+      - description: get number of per_page
+        in: query
+        name: per_page
+        type: string
+      - description: 'soft by cols exm: col1|asc,col2|desc'
+        in: query
+        name: sort
+        type: string
+      - description: 'search with column exm: col1|aaa,col2|bbb  by filter'
+        in: query
+        name: filter
+        type: string
+      - description: 'search by kw exm: aaa bbb ccc '
+        in: query
+        name: kw
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Book'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: List Books use VueTable
+      tags:
+      - books
   /emailverify:
     get:
       consumes:
@@ -589,6 +662,18 @@ paths:
       summary: List Auths
       tags:
       - auths
+  /test:
+    get:
+      description: Ping for the service
+      operationId: Test
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+      summary: Ping
 schemes:
 - https
 - http

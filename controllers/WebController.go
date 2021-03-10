@@ -1,6 +1,9 @@
 package controllers
 
 import (
+	"apitest/db"
+	"apitest/models"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -31,5 +34,24 @@ func Message(c *gin.Context) {
 func Ping(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "pong",
+	})
+}
+
+// Ping godoc
+// @summary Ping
+// @description Ping for the service
+// @id Test
+// @produce plain
+// @response 200 {object} utils.ResponseData  "OK"
+// @router /test [get]
+func Test(c *gin.Context) {
+	var user []models.User
+	if err := db.GetDB().Where("id = ? ", 1).Preload("Roles").Find(&user).Error; err != nil {
+		log.Fatal(err)
+		return
+	}
+	log.Println(user)
+	c.JSON(http.StatusOK, gin.H{
+		"message": user,
 	})
 }

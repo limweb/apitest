@@ -7,7 +7,6 @@ type Books struct {
 type Book struct {
 	ModelDefault
 	BookForCreate
-	ID uint `json:"id" gorm:"primary_key" example:"1" ` // Book id
 }
 
 type BookForCreate struct {

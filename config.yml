@@ -1,0 +1,11 @@
+database:
+  driver: "sqlite"   # sqlite / mysql / postgres
+  dbname: "database_name" 
+  username: "user"
+  password: "password"
+  host: "localhost"
+  port: "5432"   # 5432 pgsql 3306 mysql
+  logmode: true   # เมื่อต้องการ debug Sql ออกทาง Log
+
+server:
+  port: "8080"  # ต้องการให้ Server Listen Port 
