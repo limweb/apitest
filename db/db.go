@@ -45,7 +45,7 @@ func SetupDB() {
 		}
 	} else if driver == "mysql" {
 		db, err = gorm.
-		Open("mysql", username+":"+password+"@tcp("+host+":"+port+")/"+database+"?charset=utf8&parseTime=True&loc=Local")
+			Open("mysql", username+":"+password+"@tcp("+host+":"+port+")/"+database+"?charset=utf8&parseTime=True&loc=Local")
 		if err != nil {
 			DBErr = err
 			fmt.Println("db err: ", err)
@@ -60,7 +60,7 @@ func SetupDB() {
 	db.AutoMigrate(&models.User{})
 	db.AutoMigrate(&models.Book{})
 	db.AutoMigrate(&models.Role{})
-	db.AutoMigrate(&models.Premission{})
+	db.AutoMigrate(&models.Permission{})
 	db.AutoMigrate(&models.PermissionRole{})
 	db.AutoMigrate(&models.RoleUser{})
 	db.AutoMigrate(&models.PasswordResets{})

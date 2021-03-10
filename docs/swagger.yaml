@@ -69,6 +69,36 @@ definitions:
     required:
     - password
     type: object
+  models.Permission:
+    properties:
+      created_at:
+        description: Model Created At
+        example: "2021-02-02 11:11:11"
+        type: string
+      desc:
+        description: Permission desc
+        example: คำอธิบาย
+        type: string
+      id:
+        description: Permission id
+        example: 1
+        type: integer
+      name:
+        description: Permission name
+        example: create table
+        type: string
+      slug:
+        description: Permission slug
+        example: /aa
+        type: string
+      uid:
+        description: Model UUID
+        type: string
+      updated_at:
+        description: Model UPdated At
+        example: "2021-02-02 11:11:11"
+        type: string
+    type: object
   models.Role:
     properties:
       created_at:
@@ -83,6 +113,11 @@ definitions:
         description: Role name
         example: Admin
         type: string
+      permissions:
+        description: Role permission
+        items:
+          $ref: '#/definitions/models.Permission'
+        type: array
       uid:
         description: Model UUID
         type: string

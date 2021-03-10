@@ -917,6 +917,45 @@ var doc = `{
                 }
             }
         },
+        "models.Permission": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "description": "Model Created At",
+                    "type": "string",
+                    "example": "2021-02-02 11:11:11"
+                },
+                "desc": {
+                    "description": "Permission desc",
+                    "type": "string",
+                    "example": "คำอธิบาย"
+                },
+                "id": {
+                    "description": "Permission id",
+                    "type": "integer",
+                    "example": 1
+                },
+                "name": {
+                    "description": "Permission name",
+                    "type": "string",
+                    "example": "create table"
+                },
+                "slug": {
+                    "description": "Permission slug",
+                    "type": "string",
+                    "example": "/aa"
+                },
+                "uid": {
+                    "description": "Model UUID",
+                    "type": "string"
+                },
+                "updated_at": {
+                    "description": "Model UPdated At",
+                    "type": "string",
+                    "example": "2021-02-02 11:11:11"
+                }
+            }
+        },
         "models.Role": {
             "type": "object",
             "properties": {
@@ -934,6 +973,13 @@ var doc = `{
                     "description": "Role name",
                     "type": "string",
                     "example": "Admin"
+                },
+                "permissions": {
+                    "description": "Role permission",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Permission"
+                    }
                 },
                 "uid": {
                     "description": "Model UUID",

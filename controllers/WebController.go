@@ -45,8 +45,8 @@ func Ping(c *gin.Context) {
 // @response 200 {object} utils.ResponseData  "OK"
 // @router /test [get]
 func Test(c *gin.Context) {
-	var user []models.User
-	if err := db.GetDB().Where("id = ? ", 1).Preload("Roles").Find(&user).Error; err != nil {
+	var user models.User
+	if err := db.GetDB().Where("id = ? ", 1).Preload("Roles.Permissions").Find(&user).Error; err != nil {
 		log.Fatal(err)
 		return
 	}
