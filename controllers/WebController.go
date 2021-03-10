@@ -39,7 +39,7 @@ func Ping(c *gin.Context) {
 
 // Ping godoc
 // @summary Ping
-// @description Ping for the service
+// @description  test User Relagion with user->role->permission
 // @id Test
 // @produce plain
 // @response 200 {object} utils.ResponseData  "OK"
@@ -52,6 +52,6 @@ func Test(c *gin.Context) {
 	}
 	log.Println(user)
 	c.JSON(http.StatusOK, gin.H{
-		"message": user,
+		"user": user,
 	})
 }
