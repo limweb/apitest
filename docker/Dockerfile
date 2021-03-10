@@ -8,8 +8,10 @@ RUN  go mod download
 FROM install  as builder
 COPY ./main.go  /app/main.go
 COPY ./api.md   /app/api.md
-COPY ./test.db  /app/test.db
+COPY ./webapi.db  /app/webapi.db
+COPY ./config.yml /app/config.yml
 COPY ./db       /app/db
+COPY ./config /app/config
 COPY ./utils   /app/utils
 COPY ./webserver   /app/webserver
 COPY ./controllers   /app/controllers
