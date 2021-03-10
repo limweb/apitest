@@ -30,4 +30,5 @@ COPY --from=builder /app/main /app/main
 COPY ./publics  /app/publics
 COPY ./utils/private.key  /app/utils/private.key
 COPY ./utils/public.key  /app/utils/public.key
+COPY ./config.yml  /app/config.yml
 CMD ["./main"]
