@@ -27,7 +27,6 @@ RUN  GOOS=linux go build  -o main
 FROM golang:latest as production
 WORKDIR /app
 COPY --from=builder /app/main /app/main
-COPY ./test.db  /app/test.db
 COPY ./publics  /app/publics
 COPY ./utils/sample_key  /app/utils/sample_key
 COPY ./utils/sample_key.pub  /app/utils/sample_key.pub
