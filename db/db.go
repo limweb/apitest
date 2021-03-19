@@ -24,12 +24,12 @@ type Database struct {
 func SetupDB() {
 	db := dB
 	config := config.GetConfig()
-	driver := config.Database.Driver
-	database := config.Database.Dbname
-	username := config.Database.Username
-	password := config.Database.Password
-	host := config.Database.Host
-	port := config.Database.Port
+	driver := config.Section("database").Key("driver").String()
+	database := config.Section("database").Key("dbname").String()
+	username := config.Section("database").Key("username").String()
+	password := config.Section("database").Key("password").String()
+	host := config.Section("database").Key("host").String()
+	port := config.Section("database").Key("port").String()
 
 	if driver == "sqlite" {
 		db, err = gorm.Open("sqlite3", "./webapi.db")
@@ -54,7 +54,8 @@ func SetupDB() {
 
 	// Change this to true if you want to see SQL queries
 	// ไว้แสดง Sql ออกทาง Log เมื่อต้องการ Debug คำสั่ง Sql
-	db.LogMode(config.Database.LogMode)
+	tf := config.Section("database").Key("logmode").MustBool()
+	db.LogMode(tf)
 
 	//----------------Add MigrateDB --------------------------------
 	db.AutoMigrate(&models.User{})

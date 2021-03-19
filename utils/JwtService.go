@@ -6,8 +6,8 @@ package utils
 import (
 	"apitest/models"
 	"crypto/rsa"
+	_ "embed"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"strings"
@@ -18,33 +18,24 @@ import (
 )
 
 // location of the files used for signing and verification
-const (
-	privKeyPath = "./utils/private.key" // openssl genrsa -out app.rsa keysize
-	pubKeyPath  = "./utils/public.key"  // openssl rsa -in app.rsa -pubout > app.rsa.pub
-)
+// privKeyPath = "./utils/private.key" // openssl genrsa -out app.rsa keysize
+// pubKeyPath  = "./utils/public.key"  // openssl rsa -in app.rsa -pubout > app.rsa.pub
+
+// go:embed private.key
+var PrivateKey []byte
+
+// go:embed public.key
+var PublicKey []byte
 
 var (
-	verifyKey   *rsa.PublicKey
-	signKey     *rsa.PrivateKey
-	verifyBytes []byte
-	secretKey   string
-	verpk       bool
+	verifyKey *rsa.PublicKey
+	signKey   *rsa.PrivateKey
+	secretKey string
 )
 
-// read the key files before starting http handlers
 func init() {
-	signBytes, err := ioutil.ReadFile(privKeyPath)
-	fatal(err)
-
-	signKey, err = jwt.ParseRSAPrivateKeyFromPEM(signBytes)
-	fatal(err)
-
-	verifyBytes, err = ioutil.ReadFile(pubKeyPath)
-	fatal(err)
-
-	verifyKey, err = jwt.ParseRSAPublicKeyFromPEM(verifyBytes)
-	fatal(err)
-
+	signKey, _ = jwt.ParseRSAPrivateKeyFromPEM(PrivateKey)
+	verifyKey, _ = jwt.ParseRSAPublicKeyFromPEM(PublicKey)
 	secretKey = "0816477729"
 }
 
@@ -175,9 +166,9 @@ func jwtSecretVerify(c *gin.Context) {
 }
 
 func GetPubkey() string {
-	pubk := string(verifyBytes)
+	pubk := string(PublicKey)
 	if pubk != "" {
-		return string(verifyBytes)
+		return string(PublicKey)
 	} else {
 		return "---publick key---"
 	}
