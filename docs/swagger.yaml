@@ -99,6 +99,47 @@ definitions:
         example: "2021-02-02 11:11:11"
         type: string
     type: object
+  models.Post:
+    properties:
+      created_at:
+        description: Model Created At
+        example: "2021-02-02 11:11:11"
+        type: string
+      desc:
+        description: Post desc
+        type: string
+      id:
+        description: Model id pk
+        type: integer
+      title:
+        description: Post title
+        type: string
+      uid:
+        description: Model UUID
+        type: string
+      updated_at:
+        description: Model UPdated At
+        example: "2021-02-02 11:11:11"
+        type: string
+    type: object
+  models.PostForCreate:
+    properties:
+      desc:
+        description: Post desc
+        type: string
+      title:
+        description: Post title
+        type: string
+    type: object
+  models.PostForUpdate:
+    properties:
+      desc:
+        description: Post desc
+        type: string
+      title:
+        description: Post title
+        type: string
+    type: object
   models.Role:
     properties:
       created_at:
@@ -499,6 +540,332 @@ paths:
       summary: List Books use VueTable
       tags:
       - books
+  /api/v1/posts/aaa:
+    get:
+      consumes:
+      - application/json
+      description: List all posts
+      operationId: Aaaa
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              items:
+                $ref: '#/definitions/models.Post'
+              type: array
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: List Posts
+      tags:
+      - posts
+  /api/v1/posts/all:
+    get:
+      consumes:
+      - application/json
+      description: List all posts
+      operationId: ListPosts
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              items:
+                $ref: '#/definitions/models.Post'
+              type: array
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: List Posts
+      tags:
+      - posts
+  /api/v1/posts/by/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get post by id
+      operationId: GetPost
+      parameters:
+      - description: id of post to be gotten
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+      security:
+      - Basic auth: []
+      summary: Get Post
+      tags:
+      - posts
+  /api/v1/posts/del/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Delete post by id
+      operationId: DeletePost
+      parameters:
+      - description: id of post to be deleted
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete Post
+      tags:
+      - posts
+  /api/v1/posts/edit/{id}:
+    post:
+      consumes:
+      - application/json
+      description: Update post by id
+      operationId: UpdatePost
+      parameters:
+      - description: id of post to be updated
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Post data to be updated
+        in: body
+        name: Post
+        required: true
+        schema:
+          $ref: '#/definitions/models.PostForUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: Update Post
+      tags:
+      - posts
+  /api/v1/posts/last:
+    get:
+      consumes:
+      - application/json
+      description: List all posts
+      operationId: ListlastPosts
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              items:
+                $ref: '#/definitions/models.Post'
+              type: array
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: List Posts
+      tags:
+      - posts
+  /api/v1/posts/new:
+    post:
+      consumes:
+      - application/json
+      description: Create new post
+      operationId: CreatePost
+      parameters:
+      - description: Post data to be created
+        in: body
+        name: Post
+        required: true
+        schema:
+          $ref: '#/definitions/models.PostForCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: Create Post
+      tags:
+      - posts
+  /api/v1/posts/vuetable:
+    get:
+      consumes:
+      - application/json
+      description: List all posts with pagination keyword filter by column Sort columns
+      operationId: vuetablePost
+      parameters:
+      - description: number of page
+        in: query
+        name: page
+        type: string
+      - description: get number of per_page
+        in: query
+        name: per_page
+        type: string
+      - description: 'soft by cols exm: col1|asc,col2|desc'
+        in: query
+        name: sort
+        type: string
+      - description: 'search with column exm: col1|aaa,col2|bbb  by filter'
+        in: query
+        name: filter
+        type: string
+      - description: 'search by kw exm: aaa bbb ccc '
+        in: query
+        name: kw
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Post'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ResponseData'
+      security:
+      - ApiKeyAuth: []
+      summary: List Posts use VueTable
+      tags:
+      - posts
   /emailverify:
     get:
       consumes:
@@ -699,7 +1066,7 @@ paths:
       - auths
   /test:
     get:
-      description: Ping for the service
+      description: test User Relagion with user->role->permission
       operationId: Test
       produces:
       - text/plain

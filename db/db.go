@@ -64,6 +64,7 @@ func SetupDB() {
 	db.AutoMigrate(&models.PermissionRole{})
 	db.AutoMigrate(&models.RoleUser{})
 	db.AutoMigrate(&models.PasswordResets{})
+	db.AutoMigrate(&models.Post{})
 
 	dB = db
 }

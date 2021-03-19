@@ -13,7 +13,7 @@ import (
 )
 
 func StartWeb(port string) {
-	r := gin.Default()
+	r := gin.Default()  //   /
 
 	// Set up CORS middleware options
 	config := cors.Config{
@@ -38,6 +38,7 @@ func StartWeb(port string) {
 	controllers.SetupAuthRoutes(r)
 	v1 := r.Group("/api/v1")
 	controllers.SetupBookRoutes(v1)
+	controllers.SetupPostRoutes(v1)
 	// log.Fatal((r.Run(":8080")))
 	_ = port
 	// log.Fatal((r.Run(port)))

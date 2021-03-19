@@ -7,7 +7,6 @@ type PermissionRoles struct {
 type PermissionRole struct {
 	ModelDefault
 	PermissionRoleForCreate
-	ID uint `json:"id" gorm:"primary_key" example:"1" ` // PermissionRole id
 }
 
 type PermissionRoleForCreate struct {
